@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import { prisma } from '../../prisma.js';
+import { logger } from '../../logger.js';
 import { Prisma } from '../../../src/generated/prisma/client.js';
 
 type JsonDataType = {
@@ -30,6 +31,7 @@ type JsonDataType = {
 
 async function dbCreateEntrys(data: JsonDataType) {
   const brandData = data.brand;
+  logger.info(`Create or update brand ${brandData.name}`);
   const brand = await prisma.brand.upsert({
     where: {
       name: brandData.name,
@@ -44,8 +46,12 @@ async function dbCreateEntrys(data: JsonDataType) {
     },
   });
 
-  if (!brand) return;
+  if (!brand) {
+    logger.warn(`Couldn't create brand ${brandData.name}`);
+    return;
+  }
 
+  logger.info(`Create ${data.products.length} products for brand ${brandData.name}`);
   await prisma.$transaction([
     prisma.product.deleteMany({
       where: {
@@ -61,7 +67,9 @@ async function dbCreateEntrys(data: JsonDataType) {
 const BRANDS_DIR = new URL('./brands/', import.meta.url);
 
 async function seed() {
+  logger.info('Reading brand files...');
   const files = await fs.readdir(BRANDS_DIR);
+  logger.info(`Found ${files.length} brand file(s): ${files.join(', ')}`);
 
   await Promise.all(
     files.map(async (file) => {
@@ -70,6 +78,13 @@ async function seed() {
       await dbCreateEntrys(data);
     }),
   );
+
+  logger.info('Seeding finished.');
 }
 
-seed();
+seed()
+  .catch((err) => {
+    logger.error(err, 'Seeding failed');
+    process.exitCode = 1;
+  })
+  .finally(() => prisma.$disconnect());

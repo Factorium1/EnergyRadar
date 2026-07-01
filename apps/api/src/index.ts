@@ -1,18 +1,11 @@
 import express from 'express';
 import { pinoHttp } from 'pino-http';
-import pino from 'pino';
+import { logger } from '../lib/logger.js';
 import brands from './routes/brands.js';
 import products from './routes/products.js';
 import deals from './routes/deals.js';
 import search from './routes/search.js';
 import errorHandler from './middleware/error.js';
-
-const logger = pino({
-  transport:
-    process.env.NODE_ENV !== 'production'
-      ? { target: 'pino-pretty' }
-      : undefined,
-});
 
 const app = express();
 const port = process.env.PORT || 8080;
