@@ -23,8 +23,8 @@ model Brand {
 model Product {
   id       String  @id @default(cuid())
   line     String
-  name     String  
-  slug     String? 
+  name     String
+  slug     String? @unique
   volumeMl Int
   ean      String? @unique
   imageUrl String?
@@ -40,4 +40,18 @@ model Product {
 
   brand   Brand  @relation(fields: [brandId], references: [id])
   brandId String
+
+  priceHistory PriceHistory[]
+}
+
+model PriceHistory {
+  id         String   @id @default(cuid())
+  price      Decimal  @db.Decimal(10, 2)
+  currency   String   @default("EUR")
+  recordedAt DateTime @default(now())
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+
+  @@index([productId, recordedAt])
 }
