@@ -1,0 +1,47 @@
+{
+  "brand": {
+    "name": "Reign",
+    "slug": "reign"
+  },
+  "products": [
+    {
+      "line": "Energy",
+      "name": "Lemon HDZ",
+      "volumeMl": 500,
+      "ean": null,
+      "kcal": 3,
+      "sugar": 0,
+      "carbs": 0.7,
+      "caffeine": 32,
+      "taurine": null,
+      "sugarFree": true,
+      "source": "https://www.colosseum-nutrition.de/Reign-Total-Body-Fuel-Energy-12er-Pack-12x500ml"
+    },
+    {
+      "line": "Energy",
+      "name": "Razzle Berry",
+      "volumeMl": 500,
+      "ean": null,
+      "kcal": null,
+      "sugar": 0,
+      "carbs": null,
+      "caffeine": 32,
+      "taurine": null,
+      "sugarFree": true,
+      "source": "https://fitness-online-coaching.de/startseite/4-reign-total-body-fuel-energy-amino-drink-razzle-berry-500ml.html"
+    },
+    {
+      "line": "Energy",
+      "name": "Melon Mania",
+      "volumeMl": 250,
+      "ean": null,
+      "kcal": 3,
+      "sugar": 0,
+      "carbs": 0.7,
+      "caffeine": 32,
+      "taurine": null,
+      "sugarFree": true,
+      "source": "https://www.docmorris.de/reign-total-body-fuel-orange-dreamsicle/4HK1HYLF"
+    }
+  ]
+}

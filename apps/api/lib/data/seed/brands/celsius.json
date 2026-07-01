@@ -1,0 +1,60 @@
+{
+  "brand": {
+    "name": "Celsius",
+    "slug": "celsius"
+  },
+  "products": [
+    {
+      "line": "Live Fit",
+      "name": "Frozen Berry (Arctic Vibe)",
+      "volumeMl": 355,
+      "ean": null,
+      "kcal": 4,
+      "sugar": 0,
+      "carbs": 0,
+      "caffeine": 56,
+      "taurine": null,
+      "sugarFree": true,
+      "source": "https://top4running.de/p/celsius-355ml-frozen-berry-energy-drink-240001370748"
+    },
+    {
+      "line": "Live Fit",
+      "name": "Kiwi Guava",
+      "volumeMl": 250,
+      "ean": null,
+      "kcal": 3,
+      "sugar": 0,
+      "carbs": 0,
+      "caffeine": 30,
+      "taurine": null,
+      "sugarFree": true,
+      "source": "https://www.ebay.de/itm/257220862205"
+    },
+    {
+      "line": "Live Fit",
+      "name": "Mango Lemonade",
+      "volumeMl": 250,
+      "ean": null,
+      "kcal": 3,
+      "sugar": 0,
+      "carbs": 0,
+      "caffeine": 30,
+      "taurine": null,
+      "sugarFree": true,
+      "source": "https://www.ebay.de/itm/257220862205"
+    },
+    {
+      "line": "Live Fit",
+      "name": "Peach Vibe",
+      "volumeMl": 250,
+      "ean": null,
+      "kcal": 3,
+      "sugar": 0,
+      "carbs": 0,
+      "caffeine": 30,
+      "taurine": null,
+      "sugarFree": true,
+      "source": "https://www.ebay.de/itm/257220862205"
+    }
+  ]
+}

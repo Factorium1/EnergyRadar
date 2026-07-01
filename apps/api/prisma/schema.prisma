@@ -12,6 +12,32 @@ datasource db {
   provider = "postgresql"
 }
 
+model Brand {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  imageUrl String?
+  products Product[]
+}
+
 model Product {
-  id String @id @default(cuid())
+  id       String  @id @default(cuid())
+  line     String
+  name     String  
+  slug     String? 
+  volumeMl Int
+  ean      String? @unique
+  imageUrl String?
+
+  kcal      Int?
+  sugar     Float?
+  carbs     Float?
+  caffeine  Float?
+  taurine   Float?
+  sugarFree Boolean?
+
+  source String?
+
+  brand   Brand  @relation(fields: [brandId], references: [id])
+  brandId String
 }
