@@ -1,18 +1,22 @@
 import { Search } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
 import { ClipLoader } from 'react-spinners';
 
-async function fetchBrands() {
-  const res = await fetch('http://localhost:8000/api/v1/brands');
-  return res.json();
-}
-
-const HomeHeader = () => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['brands'],
-    queryFn: fetchBrands,
-  });
-
+const HomeHeader = ({
+  data,
+  isLoading,
+  isError,
+  error,
+}: {
+  data: {
+    id: string;
+    name: string;
+    slug: string;
+    imageUrl?: string;
+  }[];
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
+}) => {
   return (
     <div className='relative w-full overflow-hidden bg-linear-to-br from-[#0f1450] via-[#1a1f71] to-[#1e2485] px-7 pt-16 pb-20 text-center'>
       <div className='pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-orange-500/6' />
@@ -45,7 +49,7 @@ const HomeHeader = () => {
           </div>
         </div>
 
-        {isError && (
+        {isError && error && (
           <span className='mt-5 font-semibold text-red-500'>
             {error.message}
           </span>
@@ -57,21 +61,14 @@ const HomeHeader = () => {
             <ClipLoader color='white' size={16} aria-label='Loading Spinner' />
           )}
           {data &&
-            data.map(
-              (brand: {
-                id: string;
-                name: string;
-                slug: string;
-                imageUrl?: string;
-              }) => (
-                <span
-                  key={brand.id}
-                  className='cursor-pointer rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold text-white/85 transition-colors hover:bg-white/18'
-                >
-                  {brand.name}
-                </span>
-              ),
-            )}
+            data.map((brand) => (
+              <span
+                key={brand.id}
+                className='cursor-pointer rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold text-white/85 transition-colors hover:bg-white/18'
+              >
+                {brand.name}
+              </span>
+            ))}
         </div>
       </div>
     </div>
