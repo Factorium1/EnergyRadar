@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import HomeHeader from '../components/Home/header';
 import { useQuery } from '@tanstack/react-query';
 import HomeBrands from '../components/Home/brands';
+import HomeDeals from '../components/Home/deals';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -29,8 +30,9 @@ function HomePage() {
       <div className='flex items-center justify-center gap-10 w-full bg-white py-4'>
         sadflj
       </div>
-      <div className='w-full bg-white/10'>
-        <div className='flex items-start justify-center gap-20 px-5 py-20'>
+      <div className='w-full bg-[#F0F2F5]'>
+        <div className='flex flex-col items-start justify-center px-5 py-15 gap-15'>
+          <HomeDeals />
           <HomeBrands
             data={data}
             isLoading={isLoading}

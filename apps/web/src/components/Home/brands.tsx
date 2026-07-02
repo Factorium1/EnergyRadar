@@ -17,7 +17,7 @@ const HomeBrands = ({
   error: Error | null;
 }) => {
   return (
-    <div className='mx-auto w-full max-w-7xl px-7 py-12'>
+    <div className='mx-auto w-full max-w-7xl'>
       <h2 className='mb-5 text-2xl text-gray-900 font-semibold'>
         Beliebte Marken
       </h2>
