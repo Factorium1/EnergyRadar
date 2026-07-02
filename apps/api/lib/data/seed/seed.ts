@@ -51,7 +51,9 @@ async function dbCreateEntrys(data: JsonDataType) {
     return;
   }
 
-  logger.info(`Create ${data.products.length} products for brand ${brandData.name}`);
+  logger.info(
+    `Create ${data.products.length} products for brand ${brandData.name}`,
+  );
   await prisma.$transaction([
     prisma.product.deleteMany({
       where: {
@@ -60,6 +62,34 @@ async function dbCreateEntrys(data: JsonDataType) {
     }),
     prisma.product.createMany({
       data: data.products.map((product) => ({ ...product, brandId: brand.id })),
+    }),
+  ]);
+
+  const products = await prisma.product.findMany({
+    where: {
+      brandId: brand.id,
+    },
+  });
+
+  logger.info(`Create PriceHistory for ${products.length} products`);
+
+  await prisma.$transaction([
+    prisma.priceHistory.deleteMany({
+      where: {
+        productId: {
+          in: products.map((product) => product.id),
+        },
+      },
+    }),
+    prisma.priceHistory.createMany({
+      data: products.flatMap((product) => {
+        const basePrice = 1 + Math.random() * 9;
+        return Array.from({ length: 10 }, (_, i) => ({
+          price: Number((basePrice * (0.9 + Math.random() * 0.2)).toFixed(2)),
+          recordedAt: new Date(Date.now() - (9 - i) * 24 * 60 * 60 * 1000),
+          productId: product.id,
+        }));
+      }),
     }),
   ]);
 }
