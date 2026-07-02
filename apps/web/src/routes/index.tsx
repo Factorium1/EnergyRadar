@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import HomeHeader from '../components/Home/header';
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -6,8 +7,8 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   return (
-    <div>
-      <span>HomePage</span>
-    </div>
+    <>
+      <HomeHeader />
+    </>
   );
 }
