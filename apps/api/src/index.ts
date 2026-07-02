@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { pinoHttp } from 'pino-http';
 import { logger } from '../lib/logger.js';
 import brands from './routes/brands.js';
@@ -10,6 +11,7 @@ import errorHandler from './middleware/error.js';
 const app = express();
 const port = process.env.PORT || 8080;
 
+app.use(cors());
 app.use(pinoHttp({ logger }));
 
 app.use('/api/v1/deals', deals);
