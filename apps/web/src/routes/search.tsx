@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { CircleLoader } from 'react-spinners';
 import ProductCard from '../components/Home/product-card';
+import { useMemo, useState } from 'react';
 
 type SearchParams = {
   q?: string;
@@ -47,12 +48,38 @@ function RouteComponent() {
     enabled: q !== undefined,
   });
 
+  const [filter, setFilter] = useState('price-change');
+
+  function changeFilter(e: React.ChangeEvent<HTMLSelectElement>) {
+    setFilter(e.target.value);
+  }
+
+  const filteredData = useMemo(() => {
+    if (!data) return data;
+
+    switch (filter) {
+      case 'price-desc':
+        return [...data].sort((a, b) => b.price - a.price);
+
+      case 'price-asc':
+        return [...data].sort((a, b) => a.price - b.price);
+
+      case 'name':
+        return [...data].sort((a, b) => a.name.localeCompare(b.name));
+
+      case 'brand':
+        return [...data].sort((a, b) => a.brand.name.localeCompare(b.brand.name));
+
+      case 'price-change':
+      default:
+        return data;
+    }
+  }, [filter, data]);
+
   if (q === undefined) {
     navigation({ to: '/' });
     return null;
   }
-
-  console.log(data);
 
   return (
     <div className='w-full min-h-svh bg-[#F0F2F5]'>
@@ -69,21 +96,24 @@ function RouteComponent() {
               Ergebnisse gefunden
             </span>
           </div>
-          <form className='flex gap-2 items-center'>
+          <div className='flex gap-2 items-center'>
             <span className='font-semibold text-sm text-gray-700'>
               Sortieren:
             </span>
             <select
               name='sortBy'
               id='sortBy'
+              value={filter}
+              onChange={changeFilter}
               className='border border-gray-500 rounded-sm px-2 py-1 font-semibold text-sm bg-white cursor-pointer outline-none focus:outline-none'
             >
+              <option value='price-change'>Groesste aenderung</option>
               <option value='price-desc'>Preis absteigend</option>
               <option value='price-asc'>Preis aufsteigend</option>
               <option value='name'>Name A-Z</option>
               <option value='brand'>Marke A-Z</option>
             </select>
-          </form>
+          </div>
         </div>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full'>
           {isLoading && <CircleLoader color='blue-500' />}
@@ -92,7 +122,7 @@ function RouteComponent() {
               An Error occured
             </span>
           )}
-          {data?.map((product) => (
+          {filteredData?.map((product) => (
             <ProductCard
               key={product.id}
               brand={product.brand.name}
