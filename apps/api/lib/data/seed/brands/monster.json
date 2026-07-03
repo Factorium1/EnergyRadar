@@ -7,6 +7,7 @@
     {
       "line": "Original",
       "name": "Original",
+      "slug": "monster-original",
       "volumeMl": 500,
       "ean": null,
       "kcal": 47,
@@ -20,6 +21,7 @@
     {
       "line": "Zero",
       "name": "Zero Sugar",
+      "slug": "monster-zero-zero-sugar",
       "volumeMl": 500,
       "ean": null,
       "kcal": 3,
@@ -33,6 +35,7 @@
     {
       "line": "Ultra",
       "name": "Strawberry Dreams",
+      "slug": "monster-ultra-strawberry-dreams",
       "volumeMl": 500,
       "ean": null,
       "kcal": 2,
@@ -46,6 +49,7 @@
     {
       "line": "Ultra",
       "name": "Ultra Gold",
+      "slug": "monster-ultra-ultra-gold",
       "volumeMl": 500,
       "ean": null,
       "kcal": 2,
@@ -59,6 +63,7 @@
     {
       "line": "Ultra",
       "name": "Ultra Watermelon",
+      "slug": "monster-ultra-ultra-watermelon",
       "volumeMl": 500,
       "ean": null,
       "kcal": 3,
@@ -72,6 +77,7 @@
     {
       "line": "Ultra",
       "name": "Ultra White",
+      "slug": "monster-ultra-ultra-white",
       "volumeMl": 500,
       "ean": null,
       "kcal": 2,
@@ -85,6 +91,7 @@
     {
       "line": "Ultra",
       "name": "Ultra Fiesta Mango",
+      "slug": "monster-ultra-ultra-fiesta-mango",
       "volumeMl": 500,
       "ean": null,
       "kcal": 3,
@@ -98,6 +105,7 @@
     {
       "line": "Juiced",
       "name": "Mango Loco",
+      "slug": "monster-juiced-mango-loco",
       "volumeMl": 500,
       "ean": null,
       "kcal": 48,
@@ -111,6 +119,7 @@
     {
       "line": "Juiced",
       "name": "Viking Berry",
+      "slug": "monster-juiced-viking-berry",
       "volumeMl": 500,
       "ean": null,
       "kcal": 42,
@@ -124,6 +133,7 @@
     {
       "line": "Juiced",
       "name": "Khaotic",
+      "slug": "monster-juiced-khaotic",
       "volumeMl": 500,
       "ean": null,
       "kcal": 34,
@@ -137,6 +147,7 @@
     {
       "line": "Juiced",
       "name": "Rio Punch",
+      "slug": "monster-juiced-rio-punch",
       "volumeMl": 500,
       "ean": null,
       "kcal": 30,
@@ -150,6 +161,7 @@
     {
       "line": "Original/Mix",
       "name": "Punch",
+      "slug": "monster-original-mix-punch",
       "volumeMl": 500,
       "ean": null,
       "kcal": 39,
@@ -163,6 +175,7 @@
     {
       "line": "Rehab",
       "name": "Peach Tea",
+      "slug": "monster-rehab-peach-tea",
       "volumeMl": 500,
       "ean": null,
       "kcal": 10,
@@ -176,6 +189,7 @@
     {
       "line": "Rehab",
       "name": "Wild Berry Tea",
+      "slug": "monster-rehab-wild-berry-tea",
       "volumeMl": 500,
       "ean": null,
       "kcal": 10,
@@ -189,6 +203,7 @@
     {
       "line": "Original",
       "name": "Assault",
+      "slug": "monster-original-assault",
       "volumeMl": 500,
       "ean": null,
       "kcal": 71,
@@ -202,6 +217,7 @@
     {
       "line": "Original/Special",
       "name": "The Doctor",
+      "slug": "monster-original-special-the-doctor",
       "volumeMl": 500,
       "ean": null,
       "kcal": 44,
@@ -215,6 +231,7 @@
     {
       "line": "Original/Special",
       "name": "Top Speed",
+      "slug": "monster-original-special-top-speed",
       "volumeMl": 500,
       "ean": null,
       "kcal": 3,

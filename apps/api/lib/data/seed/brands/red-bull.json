@@ -7,6 +7,7 @@
     {
       "line": "Original",
       "name": "Energy Drink",
+      "slug": "redbull-original-energy-drink",
       "volumeMl": 250,
       "ean": null,
       "kcal": 46,
@@ -20,6 +21,7 @@
     {
       "line": "Zero",
       "name": "Zero",
+      "slug": "redbull-zero",
       "volumeMl": 250,
       "ean": null,
       "kcal": 2,
@@ -33,6 +35,7 @@
     {
       "line": "Sugarfree",
       "name": "Sugarfree",
+      "slug": "redbull-sugarfree",
       "volumeMl": 250,
       "ean": null,
       "kcal": 2,
@@ -46,6 +49,7 @@
     {
       "line": "Editions",
       "name": "Purple Edition Waldbeere (Skogsbär)",
+      "slug": "redbull-editions-purple-edition-waldbeere-skogsbaer",
       "volumeMl": 250,
       "ean": null,
       "kcal": 44,
@@ -59,6 +63,7 @@
     {
       "line": "Editions",
       "name": "Summer Edition Sudachi-Lime",
+      "slug": "redbull-editions-summer-edition-sudachi-lime",
       "volumeMl": 250,
       "ean": null,
       "kcal": 46,
@@ -72,6 +77,7 @@
     {
       "line": "Editions",
       "name": "Summer Edition Sudachi-Lime Sugarfree",
+      "slug": "redbull-editions-summer-edition-sudachi-lime-sugarfree",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,
@@ -85,6 +91,7 @@
     {
       "line": "Editions",
       "name": "Pink Edition Waldbeere Sugarfree",
+      "slug": "redbull-editions-pink-edition-waldbeere-sugarfree",
       "volumeMl": 250,
       "ean": null,
       "kcal": 2,
@@ -98,6 +105,7 @@
     {
       "line": "Editions",
       "name": "Spring Edition Kirsche-Sakura",
+      "slug": "redbull-editions-spring-edition-kirsche-sakura",
       "volumeMl": 250,
       "ean": null,
       "kcal": 45,
@@ -111,6 +119,7 @@
     {
       "line": "Editions",
       "name": "Spring Edition Kirsche-Sakura Sugarfree",
+      "slug": "redbull-editions-spring-edition-kirsche-sakura-sugarfree",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,
@@ -124,6 +133,7 @@
     {
       "line": "Editions",
       "name": "The Peach Edition",
+      "slug": "redbull-editions-the-peach-edition",
       "volumeMl": 250,
       "ean": null,
       "kcal": 45,
@@ -137,6 +147,7 @@
     {
       "line": "Editions",
       "name": "The Sea Blue Edition",
+      "slug": "redbull-editions-the-sea-blue-edition",
       "volumeMl": 250,
       "ean": null,
       "kcal": 45,
@@ -150,6 +161,7 @@
     {
       "line": "Editions",
       "name": "The Apricot Edition",
+      "slug": "redbull-editions-the-apricot-edition",
       "volumeMl": 250,
       "ean": null,
       "kcal": 45,
@@ -163,6 +175,7 @@
     {
       "line": "Editions",
       "name": "The Green Edition",
+      "slug": "redbull-editions-the-green-edition",
       "volumeMl": 250,
       "ean": null,
       "kcal": 45,
@@ -176,6 +189,7 @@
     {
       "line": "Editions",
       "name": "The White Edition",
+      "slug": "redbull-editions-the-white-edition",
       "volumeMl": 250,
       "ean": null,
       "kcal": 45,
@@ -189,6 +203,7 @@
     {
       "line": "Editions",
       "name": "The Blue Edition",
+      "slug": "redbull-editions-the-blue-edition",
       "volumeMl": 250,
       "ean": null,
       "kcal": 46,
@@ -202,6 +217,7 @@
     {
       "line": "Editions Sugarfree",
       "name": "The Cherry Edition Sugarfree",
+      "slug": "redbull-editions-sugarfree-the-cherry-edition-sugarfree",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,
@@ -215,6 +231,7 @@
     {
       "line": "Editions Sugarfree",
       "name": "The Peach Edition Sugarfree",
+      "slug": "redbull-editions-sugarfree-the-peach-edition-sugarfree",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,
@@ -228,6 +245,7 @@
     {
       "line": "Editions Sugarfree",
       "name": "The Lilac Edition Sugarfree",
+      "slug": "redbull-editions-sugarfree-the-lilac-edition-sugarfree",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,

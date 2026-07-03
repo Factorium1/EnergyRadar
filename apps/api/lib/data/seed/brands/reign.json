@@ -7,6 +7,7 @@
     {
       "line": "Energy",
       "name": "Lemon HDZ",
+      "slug": "reign-energy-lemon-hdz",
       "volumeMl": 500,
       "ean": null,
       "kcal": 3,
@@ -20,6 +21,7 @@
     {
       "line": "Energy",
       "name": "Razzle Berry",
+      "slug": "reign-energy-razzle-berry",
       "volumeMl": 500,
       "ean": null,
       "kcal": null,
@@ -33,6 +35,7 @@
     {
       "line": "Energy",
       "name": "Melon Mania",
+      "slug": "reign-energy-melon-mania",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,

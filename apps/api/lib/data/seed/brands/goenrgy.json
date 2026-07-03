@@ -7,6 +7,7 @@
     {
       "line": "Zero",
       "name": "Apfelringe Zero",
+      "slug": "goenrgy-zero-apfelringe-zero",
       "volumeMl": 500,
       "ean": null,
       "kcal": 2,
@@ -20,6 +21,7 @@
     {
       "line": "Zucker",
       "name": "Apfelringe",
+      "slug": "goenrgy-zucker-apfelringe",
       "volumeMl": 500,
       "ean": null,
       "kcal": 53,
@@ -33,6 +35,7 @@
     {
       "line": "Zero",
       "name": "Miami Splash Zero",
+      "slug": "goenrgy-zero-miami-splash-zero",
       "volumeMl": 500,
       "ean": null,
       "kcal": 2,
@@ -46,6 +49,7 @@
     {
       "line": "Zucker",
       "name": "Miami Splash",
+      "slug": "goenrgy-zucker-miami-splash",
       "volumeMl": 500,
       "ean": null,
       "kcal": 54,
@@ -59,6 +63,7 @@
     {
       "line": "Zero",
       "name": "Cola Cherry Zero",
+      "slug": "goenrgy-zero-cola-cherry-zero",
       "volumeMl": 500,
       "ean": null,
       "kcal": 4,
@@ -72,6 +77,7 @@
     {
       "line": "Zucker",
       "name": "Cola Cherry",
+      "slug": "goenrgy-zucker-cola-cherry",
       "volumeMl": 500,
       "ean": null,
       "kcal": 53,
@@ -85,6 +91,7 @@
     {
       "line": "Zero",
       "name": "Boost Berries Zero",
+      "slug": "goenrgy-zero-boost-berries-zero",
       "volumeMl": 500,
       "ean": null,
       "kcal": 4,
@@ -98,6 +105,7 @@
     {
       "line": "Zucker",
       "name": "Boost Berries",
+      "slug": "goenrgy-zucker-boost-berries",
       "volumeMl": 500,
       "ean": null,
       "kcal": 53,
@@ -111,6 +119,7 @@
     {
       "line": "Zucker",
       "name": "Viva Fundarina",
+      "slug": "goenrgy-zucker-viva-fundarina",
       "volumeMl": 500,
       "ean": null,
       "kcal": 53,
@@ -124,6 +133,7 @@
     {
       "line": "Zucker",
       "name": "Paradise-Punch",
+      "slug": "goenrgy-zucker-paradise-punch",
       "volumeMl": 500,
       "ean": null,
       "kcal": 56,
@@ -137,6 +147,7 @@
     {
       "line": "Zero",
       "name": "Paradise-Punch Zero",
+      "slug": "goenrgy-zero-paradise-punch-zero",
       "volumeMl": 500,
       "ean": null,
       "kcal": 4,
@@ -150,6 +161,7 @@
     {
       "line": "Zucker",
       "name": "Mango Slam",
+      "slug": "goenrgy-zucker-mango-slam",
       "volumeMl": 500,
       "ean": null,
       "kcal": 54,
@@ -163,6 +175,7 @@
     {
       "line": "Zero",
       "name": "Kaktus Kick Zero",
+      "slug": "goenrgy-zero-kaktus-kick-zero",
       "volumeMl": 500,
       "ean": null,
       "kcal": 2,
@@ -176,6 +189,7 @@
     {
       "line": "Zero",
       "name": "Blueberry Coconut",
+      "slug": "goenrgy-zero-blueberry-coconut",
       "volumeMl": 500,
       "ean": null,
       "kcal": 3,
@@ -189,6 +203,7 @@
     {
       "line": "Zero",
       "name": "Juneberry Jam",
+      "slug": "goenrgy-zero-juneberry-jam",
       "volumeMl": 500,
       "ean": null,
       "kcal": 2,
@@ -202,6 +217,7 @@
     {
       "line": "Zucker",
       "name": "Pflaume Zimt",
+      "slug": "goenrgy-zucker-pflaume-zimt",
       "volumeMl": 500,
       "ean": null,
       "kcal": 54,
@@ -215,6 +231,7 @@
     {
       "line": "Zero",
       "name": "Pflaume Zimt Zero",
+      "slug": "goenrgy-zero-pflaume-zimt-zero",
       "volumeMl": 500,
       "ean": null,
       "kcal": 4,
@@ -228,6 +245,7 @@
     {
       "line": "Original",
       "name": "Black Acai",
+      "slug": "goenrgy-original-black-acai",
       "volumeMl": 500,
       "ean": null,
       "kcal": 3,

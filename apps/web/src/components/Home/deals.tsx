@@ -5,7 +5,7 @@ import { CircleLoader } from 'react-spinners';
 type DealsType = {
   id: string;
   name: string;
-  slug?: string;
+  slug: string;
   imageUrl?: string;
   brand: {
     id: string;

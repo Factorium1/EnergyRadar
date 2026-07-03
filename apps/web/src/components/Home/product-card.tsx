@@ -13,7 +13,7 @@ const ProductCard = ({
 }: {
   brand: string;
   title: string;
-  slug?: string;
+  slug: string;
   change: number;
   price: number;
   median: number;
@@ -68,7 +68,7 @@ const ProductCard = ({
           </span>
         </div>
         <div className='flex justify-end items-center mt-auto pt-3 w-full'>
-          <button className='flex items-center gap-1 px-3 py-2 text-white bg-blue-600 group-hover:bg-blue-700 rounded-lg text-sm font-semibold transition-colors'>
+          <button className='flex items-center gap-1 px-3 py-2 text-white bg-blue-600 group-hover:bg-blue-700 rounded-lg text-sm font-semibold transition-colors cursor-pointer'>
             Vergleichen <ArrowRight size={16} />
           </button>
         </div>

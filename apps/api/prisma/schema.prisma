@@ -24,7 +24,7 @@ model Product {
   id       String  @id @default(cuid())
   line     String
   name     String
-  slug     String? @unique
+  slug     String  @unique
   volumeMl Int
   ean      String? @unique
   imageUrl String?

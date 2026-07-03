@@ -7,6 +7,7 @@
     {
       "line": "Live Fit",
       "name": "Frozen Berry (Arctic Vibe)",
+      "slug": "celsius-live-fit-frozen-berry-arctic-vibe",
       "volumeMl": 355,
       "ean": null,
       "kcal": 4,
@@ -20,6 +21,7 @@
     {
       "line": "Live Fit",
       "name": "Kiwi Guava",
+      "slug": "celsius-live-fit-kiwi-guava",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,
@@ -33,6 +35,7 @@
     {
       "line": "Live Fit",
       "name": "Mango Lemonade",
+      "slug": "celsius-live-fit-mango-lemonade",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,
@@ -46,6 +49,7 @@
     {
       "line": "Live Fit",
       "name": "Peach Vibe",
+      "slug": "celsius-live-fit-peach-vibe",
       "volumeMl": 250,
       "ean": null,
       "kcal": 3,
