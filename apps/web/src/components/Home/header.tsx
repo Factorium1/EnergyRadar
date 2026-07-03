@@ -1,5 +1,7 @@
 import { Search } from 'lucide-react';
 import { ClipLoader } from 'react-spinners';
+import { useSearchSubmit } from '../../hooks/useSearchSubmit';
+import { useState } from 'react';
 
 const HomeHeader = ({
   data,
@@ -17,6 +19,8 @@ const HomeHeader = ({
   isError: boolean;
   error: Error | null;
 }) => {
+  const [searchValue, setSearchValue] = useState('');
+
   return (
     <div className='relative w-full overflow-hidden bg-linear-to-br from-[#0f1450] via-[#1a1f71] to-[#1e2485] px-7 pt-16 pb-20 text-center'>
       <div className='pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-orange-500/6' />
@@ -37,17 +41,26 @@ const HomeHeader = ({
           Online-Shops
         </span>
 
-        <div className='flex w-full max-w-155 items-center gap-3 rounded-[28px] bg-white py-2 pr-2 pl-5 shadow-[0_12px_40px_rgba(0,0,0,0.25)]'>
+        <form
+          className='flex w-full max-w-155 items-center gap-3 rounded-[28px] bg-white py-2 pr-2 pl-5 shadow-[0_12px_40px_rgba(0,0,0,0.25)]'
+          onSubmit={useSearchSubmit(searchValue)}
+        >
           <Search size={20} className='shrink-0 text-gray-400' />
-          <span className='flex-1 text-left text-[15px] font-medium text-gray-400'>
-            z.B. Monster Energy Original 500ml...
-          </span>
-          <div className='hidden md:inline shrink-0 cursor-pointer rounded-[22px] bg-orange-500 px-7 py-3.5 transition-colors hover:bg-orange-600'>
+          <input
+            type='text'
+            placeholder='z.B. Monster Energy Original 500ml...'
+            className='flex-1 border-none bg-transparent text-left text-[15px] font-medium text-gray-900 placeholder:text-gray-400 focus:outline-none'
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <button
+            className='hidden md:inline shrink-0 cursor-pointer rounded-[22px] bg-orange-500 px-7 py-3.5 transition-colors hover:bg-orange-600'
+            type='submit'
+          >
             <span className='text-[15px] font-extrabold whitespace-nowrap text-white'>
               Jetzt vergleichen
             </span>
-          </div>
-        </div>
+          </button>
+        </form>
 
         {isError && error && (
           <span className='mt-5 font-semibold text-red-500'>
