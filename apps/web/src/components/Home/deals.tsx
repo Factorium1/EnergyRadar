@@ -53,7 +53,7 @@ const HomeDeals = () => {
                 price={product.price}
                 median={product.median}
                 img={product.imageUrl}
-                index={index}
+                label={`Platz ${index + 1}`}
               />
             ))}
       </div>

@@ -1,5 +1,10 @@
 import express, { Router } from 'express';
 import { prisma } from '../../lib/prisma.js';
+import {
+  getProductPriceMedian,
+  getProductsWithPriceChange,
+  sortProductsByCheapest,
+} from '../../lib/helper/productPrice.js';
 
 const router: Router = express.Router();
 
@@ -40,10 +45,17 @@ router.get('/', async (req, res, next) => {
       },
       include: {
         brand: true,
+        priceHistory: true,
       },
     });
 
-    res.json(products);
+    const productsWithMedian = getProductPriceMedian(products);
+
+    const productsWithChange = getProductsWithPriceChange(productsWithMedian);
+
+    const productsSorted = sortProductsByCheapest(productsWithChange);
+
+    res.json(productsSorted);
   } catch (err) {
     next(err);
   }

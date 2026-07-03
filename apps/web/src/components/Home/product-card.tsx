@@ -9,7 +9,7 @@ const ProductCard = ({
   price,
   median,
   img,
-  index,
+  label,
 }: {
   brand: string;
   title: string;
@@ -18,7 +18,7 @@ const ProductCard = ({
   price: number;
   median: number;
   img?: string;
-  index: number;
+  label?: string;
 }) => {
   const changePercent = Math.abs((change / median) * 100).toFixed(1);
   const isCheaper = change > 0;
@@ -38,9 +38,11 @@ const ProductCard = ({
         ) : (
           <div className='h-full w-full bg-gray-100' />
         )}
-        <span className='absolute top-3 left-3 rounded-md bg-orange-500 text-white tracking-tight font-bold text-xs px-2 py-1 shadow-sm'>
-          Platz {index + 1}
-        </span>
+        {label && (
+          <span className='absolute top-3 left-3 rounded-md bg-orange-500 text-white tracking-tight font-bold text-xs px-2 py-1 shadow-sm'>
+            {label}
+          </span>
+        )}
       </div>
       <div className='p-4 flex flex-col items-start gap-1.5 flex-1'>
         <span className='uppercase text-blue-700 text-[11px] font-bold tracking-wide'>
