@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { ChevronDown } from 'lucide-react';
 import { CircleLoader } from 'react-spinners';
 import ProductCard from '../components/Home/product-card';
 import { useMemo, useState } from 'react';
@@ -83,7 +84,7 @@ function RouteComponent() {
 
   return (
     <div className='w-full min-h-svh bg-[#F0F2F5]'>
-      <div className='px-5 py-10 flex flex-col items-start gap-5'>
+      <div className='px-5 py-10 flex flex-col items-start gap-5 max-w-7xl mx-auto'>
         <span className='text-3xl font-semibold'>
           Suchergebnisse fuer '{q}'
         </span>
@@ -100,19 +101,25 @@ function RouteComponent() {
             <span className='font-semibold text-sm text-gray-700'>
               Sortieren:
             </span>
-            <select
-              name='sortBy'
-              id='sortBy'
-              value={filter}
-              onChange={changeFilter}
-              className='border border-gray-500 rounded-sm px-2 py-1 font-semibold text-sm bg-white cursor-pointer outline-none focus:outline-none'
-            >
-              <option value='price-change'>Groesste aenderung</option>
-              <option value='price-desc'>Preis absteigend</option>
-              <option value='price-asc'>Preis aufsteigend</option>
-              <option value='name'>Name A-Z</option>
-              <option value='brand'>Marke A-Z</option>
-            </select>
+            <div className='relative'>
+              <select
+                name='sortBy'
+                id='sortBy'
+                value={filter}
+                onChange={changeFilter}
+                className='appearance-none rounded-xl border border-gray-100 bg-white py-2 pr-9 pl-3 text-sm font-semibold text-gray-900 shadow-sm cursor-pointer outline-none transition-colors hover:border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-500/40'
+              >
+                <option value='price-change'>Groesste aenderung</option>
+                <option value='price-desc'>Preis absteigend</option>
+                <option value='price-asc'>Preis aufsteigend</option>
+                <option value='name'>Name A-Z</option>
+                <option value='brand'>Marke A-Z</option>
+              </select>
+              <ChevronDown
+                size={16}
+                className='pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-gray-400'
+              />
+            </div>
           </div>
         </div>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full'>

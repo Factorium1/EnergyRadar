@@ -29,7 +29,7 @@ const HomeDeals = () => {
     queryFn: fetchDeals,
   });
   return (
-    <div className='flex items-center gap-5 flex-col w-full'>
+    <div className='flex items-center gap-5 flex-col w-full max-w-7xl mx-auto'>
       <div className='flex flex-col items-start gap-5 justify-center w-full'>
         <span className='text-3xl font-bold'>Top Angebote</span>
       </div>
