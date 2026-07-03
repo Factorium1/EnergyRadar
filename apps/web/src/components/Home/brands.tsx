@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import { ClipLoader } from 'react-spinners';
 
 const HomeBrands = ({
@@ -37,7 +38,9 @@ const HomeBrands = ({
       <div className='grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6'>
         {data &&
           data.map((brand) => (
-            <div
+            <Link
+              to='/search'
+              search={{ q: brand.name }}
               key={brand.id}
               className='cursor-pointer rounded-xl border-2 border-transparent bg-white px-3 py-5.5 text-center shadow-[0_1px_4px_rgba(0,0,0,0.06)] transition-colors hover:border-[#1a1f71] hover:shadow-[0_4px_16px_rgba(26,31,113,0.12)]'
             >
@@ -49,7 +52,7 @@ const HomeBrands = ({
               <div className='text-xs font-extrabold text-gray-900'>
                 {brand.name}
               </div>
-            </div>
+            </Link>
           ))}
       </div>
     </div>
