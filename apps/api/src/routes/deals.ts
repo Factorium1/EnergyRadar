@@ -45,7 +45,9 @@ router.get('/', async (req, res, next) => {
 
   const productsSorted = () => {
     const sorted = productsWithChange.sort(
-      (a, b) => Number(b.change) - Number(a.change),
+      (a, b) =>
+        Number(b.change) / Number(b.median) -
+        Number(a.change) / Number(a.median),
     );
     return sorted.map(({ priceHistory, ...withoutHistory }) => withoutHistory);
   };
