@@ -1,5 +1,9 @@
 import express, { Router } from 'express';
 import { prisma } from '../../lib/prisma.js';
+import {
+  getProductPriceMedian,
+  getProductsWithPriceChange,
+} from '../../lib/helper/productPrice.js';
 
 const router: Router = express.Router();
 
@@ -9,6 +13,10 @@ router.get('/:productSlug', async (req, res, next) => {
       where: {
         slug: req.params.productSlug,
       },
+      include: {
+        brand: true,
+        priceHistory: true,
+      },
     });
 
     if (!product) {
@@ -16,10 +24,14 @@ router.get('/:productSlug', async (req, res, next) => {
         `Product ${req.params.productSlug} not Found`,
       );
       error.status = 404;
-      next(error);
+      return next(error);
     }
 
-    res.json(product);
+    const [productWithChange] = getProductsWithPriceChange(
+      getProductPriceMedian([product]),
+    );
+
+    res.json(productWithChange);
   } catch (err) {
     next(err);
   }
