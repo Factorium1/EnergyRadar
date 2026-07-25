@@ -133,6 +133,7 @@ function RouteComponent() {
             <ProductCard
               key={product.id}
               brand={product.brand.name}
+              brandSlug={product.brand.slug}
               title={product.name}
               slug={product.slug}
               change={product.change}
