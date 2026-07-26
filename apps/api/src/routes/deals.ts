@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
       slug: true,
       imageUrl: true,
       brand: true,
-      priceHistory: true,
+      offers: { include: { seller: true } },
     },
   });
 

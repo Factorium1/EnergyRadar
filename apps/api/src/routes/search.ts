@@ -45,7 +45,7 @@ router.get('/', async (req, res, next) => {
       },
       include: {
         brand: true,
-        priceHistory: true,
+        offers: { include: { seller: true } },
       },
     });
 

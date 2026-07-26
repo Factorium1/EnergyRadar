@@ -1,11 +1,14 @@
 import express, { Router } from 'express';
 import { prisma } from '../../lib/prisma.js';
 import {
+  buildPriceTimeline,
   getProductPriceMedian,
   getProductsWithPriceChange,
 } from '../../lib/helper/productPrice.js';
 
 const router: Router = express.Router();
+
+const TIMELINE_DAYS = 30;
 
 router.get('/:productSlug', async (req, res, next) => {
   try {
@@ -15,7 +18,10 @@ router.get('/:productSlug', async (req, res, next) => {
       },
       include: {
         brand: true,
-        priceHistory: true,
+        offers: {
+          include: { seller: true },
+          orderBy: { price: 'asc' },
+        },
       },
     });
 
@@ -27,11 +33,25 @@ router.get('/:productSlug', async (req, res, next) => {
       return next(error);
     }
 
+    const history = await prisma.priceHistory.findMany({
+      where: { productId: product.id },
+      select: {
+        price: true,
+        recordedAt: true,
+        sellerId: true,
+        inStock: true,
+      },
+      orderBy: { recordedAt: 'asc' },
+    });
+
     const [productWithChange] = getProductsWithPriceChange(
       getProductPriceMedian([product]),
     );
 
-    res.json(productWithChange);
+    res.json({
+      ...productWithChange,
+      priceTimeline: buildPriceTimeline(history, TIMELINE_DAYS),
+    });
   } catch (err) {
     next(err);
   }
