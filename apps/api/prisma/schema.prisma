@@ -36,22 +36,56 @@ model Product {
   taurine   Float?
   sugarFree Boolean?
 
-  source String?
-
   brand   Brand  @relation(fields: [brandId], references: [id])
   brandId String
 
   priceHistory PriceHistory[]
+  offers       Offer[]
+}
+
+model Offer {
+  id               String   @id @default(cuid())
+  product          Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId        String
+  seller           Seller   @relation(fields: [sellerId], references: [id])
+  sellerId         String
+  productUrl       String
+  price            Decimal  @db.Decimal(10, 2)
+  currency         String   @default("EUR")
+  shippingCost     Decimal? @db.Decimal(10, 2)
+  freeShippingFrom Decimal? @db.Decimal(10, 2)
+  inStock          Boolean  @default(true)
+  lastCheckedAt    DateTime @default(now())
+  lastChangedAt    DateTime @default(now())
+
+  @@unique([productId, sellerId])
+  @@index([productId, price])
+  @@index([sellerId])
+}
+
+model Seller {
+  id             String         @id @default(cuid())
+  name           String         @unique
+  slug           String         @unique
+  imageUrl       String?
+  shopUrl        String?
+  offers         Offer[]
+  priceHistories PriceHistory[]
 }
 
 model PriceHistory {
   id         String   @id @default(cuid())
   price      Decimal  @db.Decimal(10, 2)
   currency   String   @default("EUR")
+  inStock    Boolean  @default(true)
   recordedAt DateTime @default(now())
 
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
+  seller    Seller  @relation(fields: [sellerId], references: [id])
+  sellerId  String
 
+  @@unique([productId, sellerId, recordedAt])
   @@index([productId, recordedAt])
+  @@index([productId, sellerId, recordedAt])
 }
