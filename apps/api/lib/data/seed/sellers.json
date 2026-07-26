@@ -1,0 +1,27 @@
+[
+  {
+    "name": "dm",
+    "slug": "dm",
+    "shopUrl": "https://www.dm.de"
+  },
+  {
+    "name": "REWE",
+    "slug": "rewe",
+    "shopUrl": "https://www.rewe.de"
+  },
+  {
+    "name": "Amazon",
+    "slug": "amazon",
+    "shopUrl": "https://www.amazon.de"
+  },
+  {
+    "name": "Edeka",
+    "slug": "edeka",
+    "shopUrl": "https://www.edeka.de"
+  },
+  {
+    "name": "Kaufland",
+    "slug": "kaufland",
+    "shopUrl": "https://www.kaufland.de"
+  }
+]
