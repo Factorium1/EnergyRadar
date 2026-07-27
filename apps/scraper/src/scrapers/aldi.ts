@@ -67,7 +67,7 @@ async function getBasicData(): Promise<ScraperProduct[]> {
 type Nutrition = Omit<ScraperProductWithNutrition, keyof ScraperProduct>;
 
 function extractNutrients($: cheerio.CheerioAPI): Nutrition {
-  // Aldi rendert die Naehrwerte als zwei td-Spalten: Label | Wert (pro 100 ml)
+  // Aldi renders the nutrition facts as two td columns: label | value (per 100 ml)
   const nutrients = collectNutrientRows($, "table.table tbody tr", "td", "td");
 
   const fullText = $(".product-details").text();

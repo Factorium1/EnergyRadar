@@ -7,7 +7,7 @@ export function parseNutrientValue(text: string): number | null {
 }
 
 /**
- * Sucht z.B. "Koffein" gefolgt (irgendwo in der Naehe) von einer Zahl + "mg" + "/100 ml".
+ * Looks for e.g. "Koffein" followed (somewhere nearby) by a number + "mg" + "/100 ml".
  */
 export function extractPer100ml(
   text: string,
@@ -22,8 +22,8 @@ export function extractPer100ml(
 }
 
 /**
- * Liest eine Naehrwert-Tabelle in ein Objekt { label(lowercase): wert }.
- * Edeka nutzt th/td, Aldi zwei td-Spalten - deshalb sind die Selektoren konfigurierbar.
+ * Reads a nutrition table into an object { label(lowercase): value }.
+ * Edeka uses th/td, Aldi two td columns - that's why the selectors are configurable.
  */
 export function collectNutrientRows(
   $: cheerio.CheerioAPI,
@@ -43,7 +43,7 @@ export function collectNutrientRows(
   return nutrients;
 }
 
-/** Wert aus der Tabelle holen und direkt in eine Zahl umwandeln. */
+/** Reads a value from the table and converts it straight into a number. */
 export function nutrientNumber(
   nutrients: Record<string, string>,
   label: string,

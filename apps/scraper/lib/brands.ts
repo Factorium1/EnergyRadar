@@ -18,7 +18,7 @@ export function isKnownBrand(title: string): boolean {
   return brands.some((brand) => normalizedTitle.includes(normalize(brand)));
 }
 
-/** Findet die im Titel enthaltene bekannte Marke, oder null. */
+/** Finds the known brand contained in the title, or null. */
 export function matchBrand(title: string): string | null {
   const normalizedTitle = normalize(title);
   return (
@@ -26,7 +26,7 @@ export function matchBrand(title: string): string | null {
   );
 }
 
-/** Behaelt nur Produkte, deren Titel eine bekannte Marke enthaelt. */
+/** Keeps only products whose title contains a known brand. */
 export function filterByBrand<T extends { title: string }>(products: T[]): T[] {
   return products.filter((product) => isKnownBrand(product.title));
 }

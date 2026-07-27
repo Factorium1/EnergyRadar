@@ -15,7 +15,7 @@ export async function fetchHtml(url: string) {
   return html;
 }
 
-/** Alias fuer Detailseiten - gleicher Request wie fetchHtml. */
+/** Alias for detail pages - same request as fetchHtml. */
 export const getDetailsPage = fetchHtml;
 
 export function delay(ms: number): Promise<void> {

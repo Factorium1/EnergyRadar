@@ -4,12 +4,12 @@ export function parseGermanNumber(text: string): number | null {
   return match?.[1] ? Number(match[1].replace(",", ".")) : null;
 }
 
-/** Wie parseGermanNumber, aber 0 statt null - fuer Felder die immer eine Zahl brauchen. */
+/** Like parseGermanNumber, but 0 instead of null - for fields that always need a number. */
 export function parseGermanPrice(text: string): number {
   return parseGermanNumber(text) ?? 0;
 }
 
-/** Preis + Grundpreis -> Dosengroesse in ml (z.B. 1,49 € bei 5,96 €/l -> 250 ml) */
+/** Price + unit price -> can size in ml (e.g. 1,49 € at 5,96 €/l -> 250 ml) */
 export function canSizeFromPrices(
   price: number,
   pricePerLiter: number | null,
