@@ -1,159 +1,127 @@
-# Turborepo starter
+# EnergyRadar
 
-This Turborepo starter is maintained by the Turborepo core team.
+Price comparison for energy drinks. EnergyRadar collects offers from German
+supermarkets, stores them along with their price history, and shows where a can
+is currently cheapest — including nutrition facts (caffeine, sugar, taurine,
+kcal).
 
-## Using this example
+> [!IMPORTANT]
+> **Research and educational project.** EnergyRadar is a personal learning
+> project built to explore monorepo tooling, data modelling and full-stack
+> TypeScript. It is not a commercial service and is not intended for production
+> or public deployment. The scrapers are meant for occasional, low-volume,
+> personal research use only. If you run this yourself, you are responsible for
+> respecting each retailer's Terms of Service and `robots.txt`, for keeping
+> request rates low, and for not redistributing scraped data. No affiliation
+> with, or endorsement by, any retailer or brand mentioned here is implied.
 
-Run the following command:
+> [!NOTE]
+> Early stage. Currently Edeka and Aldi are covered.
 
-```sh
-npx create-turbo@latest
+## Features
+
+- **Price comparison** across multiple retailers per product
+- **Price history** — 30-day timeline and median price per product
+- **Deals** — products currently priced below their usual level
+- **Search** across brand, product name and can size (`monster 500ml`)
+- **Nutrition facts** parsed directly from the retailers' product pages
+
+## Tech Stack
+
+| Area     | Technology                                                        |
+| -------- | ----------------------------------------------------------------- |
+| Monorepo | Turborepo, pnpm workspaces                                        |
+| Frontend | React 19, Vite, TanStack Router & Query, Tailwind CSS v4, Recharts |
+| Backend  | Express 5, Pino                                                   |
+| Database | PostgreSQL, Prisma 7                                              |
+| Scraper  | Cheerio, tsx                                                      |
+| Language | TypeScript (everywhere)                                           |
+
+## Project Structure
+
+```
+apps/
+  web/        React SPA — frontend
+  api/        Express REST API + seed data
+  scraper/    Retailer scrapers (Edeka, Aldi) → write to the DB
+packages/
+  db/         Prisma schema, migrations, generated client
+  shared/     Shared TypeScript types
+  eslint-config/ , typescript-config/    Shared configs
 ```
 
-## What's inside?
+## Setup
 
-This Turborepo includes the following packages/apps:
+**Requirements:** Node ≥ 18, pnpm 9, a running PostgreSQL instance.
 
-### Apps and Packages
+```bash
+# 1. Clone the repo and install dependencies
+git clone https://github.com/Factorium1/EnergyRadar.git
+cd EnergyRadar
+pnpm install
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+# 2. Create the environment files
+cp .env.example .env                   # DATABASE_URL (shared by all workspaces)
+cp apps/api/.env.example apps/api/.env # API port
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+# 3. Run migrations and generate the Prisma client
+pnpm --filter @energyradar/db migrate:dev
+pnpm --filter @energyradar/db generate
 
-### Utilities
+# 4. Seed the base data (brands, sellers)
+pnpm --filter @energyradar/api seed
 
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+# 5. Start everything
+pnpm dev
 ```
 
-Without global `turbo`, use your package manager:
+The frontend then runs on `http://localhost:5173`, the API on the `PORT` set in
+`apps/api/.env` (falls back to `8080`).
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
+### Environment Variables
+
+Shared variables live in the root `.env` so they can't drift apart between
+workspaces. App-specific values stay in each workspace's own `.env`.
+
+| Variable       | Location        | Description                  |
+| -------------- | --------------- | ---------------------------- |
+| `DATABASE_URL` | root `.env`     | PostgreSQL connection string |
+| `PORT`         | `apps/api/.env` | Port the API listens on      |
+
+## Running the Scraper
+
+The scraper fetches current offers and upserts brands, products, sellers and
+offers into the database:
+
+```bash
+pnpm --filter @energyradar/scraper dev
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+Please run this sparingly — see the note at the top of this README.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## API
 
-```sh
-turbo build --filter=docs
-```
+Base URL: `/api/v1`
 
-Without global `turbo`:
+| Method | Endpoint                 | Description                                            |
+| ------ | ------------------------ | ------------------------------------------------------ |
+| `GET`  | `/deals`                 | Products sorted by cheapest price, with price change    |
+| `GET`  | `/brands`                | All brands                                             |
+| `GET`  | `/brands/:brandSlug`     | A single brand including its products                  |
+| `GET`  | `/products/:productSlug` | Product details, offers per seller, price timeline      |
+| `GET`  | `/search?q=`             | Search across product name, product line and volume     |
 
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+## Scripts
 
-### Develop
+All root scripts run through Turborepo and cover the whole monorepo:
 
-To develop all apps and packages, run the following command:
+| Script             | Description                        |
+| ------------------ | ---------------------------------- |
+| `pnpm dev`         | All apps in watch mode             |
+| `pnpm build`       | Build everything                   |
+| `pnpm lint`        | ESLint                             |
+| `pnpm check-types` | TypeScript type checking           |
+| `pnpm format`      | Prettier across all `.ts/.tsx/.md` |
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+Individual workspaces can be targeted with
+`pnpm --filter @energyradar/<name> <script>`.
