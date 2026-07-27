@@ -51,6 +51,7 @@ async function getBasicData(): Promise<ScraperProduct[]> {
     const canSizeMl = sizeLiters !== null ? sizeLiters * 1000 : null;
 
     data.push({
+      seller: 'aldi',
       title,
       url,
       price,

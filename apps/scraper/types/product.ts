@@ -1,4 +1,5 @@
 export type ScraperProduct = {
+  seller: string;
   title: string;
   url: string;
   price: number;

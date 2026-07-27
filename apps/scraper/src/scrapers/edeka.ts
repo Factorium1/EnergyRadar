@@ -45,6 +45,7 @@ async function getBasicData() {
         : null;
 
       data.push({
+        seller: "edeka",
         title,
         price,
         pricePerLiter,
@@ -79,7 +80,9 @@ async function getNutrition() {
   const data: ScraperProductWithNutrition[] = [];
 
   for (const item of basicData) {
-    console.log(`[Info] Send request ${data.length + 1} of ${basicData.length}`);
+    console.log(
+      `[Info] Send request ${data.length + 1} of ${basicData.length}`,
+    );
 
     const html = await fetchHtml(item.url);
     const $ = cheerio.load(html);

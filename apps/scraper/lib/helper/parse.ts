@@ -17,3 +17,13 @@ export function canSizeFromPrices(
   if (!pricePerLiter) return null;
   return Math.round((price / pricePerLiter) * 1000);
 }
+
+/** "Red Bull Energy Drink 250ml" -> "red-bull-energy-drink-250ml" */
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
