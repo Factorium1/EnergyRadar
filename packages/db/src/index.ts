@@ -1,4 +1,8 @@
-import 'dotenv/config';
+import { config } from 'dotenv';
+
+// pnpm/turbo always run this with cwd = the package root, so `.env` is this
+// package's own file and `../../.env` is the repo root's shared vars.
+config({ path: ['.env', '../../.env'] });
 
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
