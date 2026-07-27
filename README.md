@@ -125,3 +125,10 @@ All root scripts run through Turborepo and cover the whole monorepo:
 
 Individual workspaces can be targeted with
 `pnpm --filter @energyradar/<name> <script>`.
+
+## License
+
+[MIT](LICENSE) © Nils Müller
+
+The MIT license covers this source code only. It says nothing about the scraped
+data or the retailers' content — see the note at the top of this README.
