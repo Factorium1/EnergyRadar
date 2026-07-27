@@ -27,9 +27,9 @@ function HomePage() {
         isError={isError}
         error={error}
       />
-      <div className='flex items-center justify-center gap-10 w-full bg-white py-4'>
+      {/*<div className='flex items-center justify-center gap-10 w-full bg-white py-4'>
         sadflj
-      </div>
+      </div>*/}
       <div className='w-full bg-[#F0F2F5]'>
         <div className='flex flex-col items-start justify-center px-5 py-15 gap-15'>
           <HomeDeals />

@@ -1,7 +1,8 @@
-import { Search } from 'lucide-react';
-import { ClipLoader } from 'react-spinners';
-import { useSearchSubmit } from '../../hooks/useSearchSubmit';
-import { useState } from 'react';
+import { Search } from "lucide-react";
+import { ClipLoader } from "react-spinners";
+import { useSearchSubmit } from "../../hooks/useSearchSubmit";
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 const HomeHeader = ({
   data,
@@ -19,68 +20,70 @@ const HomeHeader = ({
   isError: boolean;
   error: Error | null;
 }) => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   return (
-    <div className='relative w-full overflow-hidden bg-linear-to-br from-[#0f1450] via-[#1a1f71] to-[#1e2485] px-7 pt-16 pb-20 text-center'>
-      <div className='pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-orange-500/6' />
-      <div className='pointer-events-none absolute -bottom-16 -left-16 h-60 w-60 rounded-full bg-white/3' />
+    <div className="relative w-full overflow-hidden bg-linear-to-br from-[#0f1450] via-[#1a1f71] to-[#1e2485] px-7 pt-16 pb-20 text-center">
+      <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-orange-500/6" />
+      <div className="pointer-events-none absolute -bottom-16 -left-16 h-60 w-60 rounded-full bg-white/3" />
 
-      <div className='relative mx-auto flex max-w-2xl flex-col items-center'>
-        <div className='flex flex-col'>
-          <span className='text-[46px] leading-[1.1] font-black tracking-tight text-white'>
+      <div className="relative mx-auto flex max-w-2xl flex-col items-center">
+        <div className="flex flex-col">
+          <span className="text-[46px] leading-[1.1] font-black tracking-tight text-white">
             Energydrinks zum
           </span>
-          <span className='text-[46px] leading-[1.1] font-black tracking-tight text-orange-500'>
+          <span className="text-[46px] leading-[1.1] font-black tracking-tight text-orange-500">
             günstigsten Preis
           </span>
         </div>
 
-        <span className='mt-3.5 mb-9 text-base font-medium text-white/65'>
-          Monster, Red Bull, Rockstar und mehr — Preisvergleich aus über 5
+        <span className="mt-3.5 mb-9 text-base font-medium text-white/65">
+          Monster, Red Bull, Rockstar und mehr — Preisvergleich aus 2
           Online-Shops
         </span>
 
         <form
-          className='flex w-full max-w-155 items-center gap-3 rounded-[28px] bg-white py-2 pr-2 pl-5 shadow-[0_12px_40px_rgba(0,0,0,0.25)]'
+          className="flex w-full max-w-155 items-center gap-3 rounded-[28px] bg-white py-2 pr-2 pl-5 shadow-[0_12px_40px_rgba(0,0,0,0.25)]"
           onSubmit={useSearchSubmit(searchValue)}
         >
-          <Search size={20} className='shrink-0 text-gray-400' />
+          <Search size={20} className="shrink-0 text-gray-400" />
           <input
-            type='text'
-            placeholder='z.B. Monster Energy Original 500ml...'
-            className='flex-1 border-none bg-transparent text-left text-[15px] font-medium text-gray-900 placeholder:text-gray-400 focus:outline-none'
+            type="text"
+            placeholder="z.B. Monster Energy Original 500ml..."
+            className="flex-1 border-none bg-transparent text-left text-[15px] font-medium text-gray-900 placeholder:text-gray-400 focus:outline-none"
             onChange={(e) => setSearchValue(e.target.value)}
           />
           <button
-            className='hidden md:inline shrink-0 cursor-pointer rounded-[22px] bg-orange-500 px-7 py-3.5 transition-colors hover:bg-orange-600'
-            type='submit'
+            className="hidden md:inline shrink-0 cursor-pointer rounded-[22px] bg-orange-500 px-7 py-3.5 transition-colors hover:bg-orange-600"
+            type="submit"
           >
-            <span className='text-[15px] font-extrabold whitespace-nowrap text-white'>
+            <span className="text-[15px] font-extrabold whitespace-nowrap text-white">
               Jetzt vergleichen
             </span>
           </button>
         </form>
 
         {isError && error && (
-          <span className='mt-5 font-semibold text-red-500'>
+          <span className="mt-5 font-semibold text-red-500">
             {error.message}
           </span>
         )}
 
-        <div className='mt-8 flex flex-wrap items-center justify-center gap-2'>
-          <span className='text-xs font-semibold text-white/45'>Beliebt:</span>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+          <span className="text-xs font-semibold text-white/45">Beliebt:</span>
           {isLoading && (
-            <ClipLoader color='white' size={16} aria-label='Loading Spinner' />
+            <ClipLoader color="white" size={16} aria-label="Loading Spinner" />
           )}
           {data &&
             data.map((brand) => (
-              <span
+              <Link
+                to="/search"
+                search={{ q: brand.name }}
                 key={brand.id}
-                className='cursor-pointer rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold text-white/85 transition-colors hover:bg-white/18'
+                className="cursor-pointer rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold text-white/85 transition-colors hover:bg-white/18"
               >
                 {brand.name}
-              </span>
+              </Link>
             ))}
         </div>
       </div>
