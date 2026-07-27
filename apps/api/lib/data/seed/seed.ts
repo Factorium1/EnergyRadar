@@ -1,7 +1,6 @@
 import fs from 'fs/promises';
-import { prisma } from '../../prisma.js';
+import { prisma, Prisma } from '@energyradar/db';
 import { logger } from '../../logger.js';
-import { Prisma } from '../../../src/generated/prisma/client.js';
 
 type JsonDataType = {
   brand: Prisma.BrandGetPayload<{

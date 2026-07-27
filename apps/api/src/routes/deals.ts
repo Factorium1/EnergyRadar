@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { prisma } from '../../lib/prisma.js';
+import { prisma } from '@energyradar/db';
 import {
   getProductPriceMedian,
   getProductsWithPriceChange,

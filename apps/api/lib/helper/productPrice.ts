@@ -1,4 +1,4 @@
-import { Prisma } from '../../src/generated/prisma/browser.js';
+import { Prisma } from '@energyradar/db';
 
 type ProductWithOffers = Prisma.ProductGetPayload<{
   select: {

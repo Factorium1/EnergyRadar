@@ -1,3 +1,6 @@
+import "dotenv/config";
+
+import { prisma } from "@energyradar/db";
 import { getAldiData } from "./scrapers/aldi.js";
 import { getEdekaData } from "./scrapers/edeka.js";
 
