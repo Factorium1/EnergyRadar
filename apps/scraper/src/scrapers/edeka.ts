@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import {
+import type {
   ScraperProduct,
   ScraperProductWithNutrition,
 } from "../../types/product.js";

@@ -1,0 +1,16 @@
+{
+  "name": "@energyradar/ts-config",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.22.0",
+  "files": [
+    "*.json"
+  ],
+  "exports": {
+    "./base": "./base.json",
+    "./next": "./next.json",
+    "./react": "./react.json",
+    "./node": "./node.json",
+    "./node-tsc": "./node-tsc.json"
+  }
+}

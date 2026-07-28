@@ -1,0 +1,9 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "jsx": "preserve",
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "incremental": true
+  }
+}

@@ -28,7 +28,8 @@ const ProductCard = ({
   return (
     <Link
       className='group flex flex-col items-stretch rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer overflow-hidden'
-      to={`/${brandSlug}/${slug}`}
+      to='/$brand/$product'
+      params={{ brand: brandSlug, product: slug }}
     >
       <div className='relative h-40 bg-gray-50 flex items-center justify-center overflow-hidden'>
         {img ? (

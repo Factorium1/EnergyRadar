@@ -1,9 +1,5 @@
 {
-  "extends": "@energyradar/typescript-config/base.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": ".",
-    "types": ["node"]
-  },
-  "include": ["src", "types", "lib"]
+  "extends": "@energyradar/ts-config/node",
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

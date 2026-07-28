@@ -2,15 +2,10 @@
   "name": "@energyradar/db",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
-  "scripts": {
-    "generate": "prisma generate",
-    "migrate:dev": "prisma migrate dev",
-    "migrate:deploy": "prisma migrate deploy",
-    "typecheck": "tsc --noEmit"
-  },
+  "packageManager": "pnpm@10.22.0",
+  "type": "module",
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
@@ -18,10 +13,19 @@
     "pg": "^8.22.0"
   },
   "devDependencies": {
-    "@energyradar/typescript-config": "workspace:*",
-    "@types/node": "^26.0.1",
+    "@energyradar/eslint-config": "workspace:*",
+    "@energyradar/ts-config": "workspace:*",
+    "@types/node": "^24.x",
     "@types/pg": "^8.20.0",
+    "eslint": "^9.x",
     "prisma": "^7.8.0",
-    "typescript": "^6.0.3"
+    "tsx": "^4.x",
+    "typescript": "^6.x"
+  },
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "type-check": "tsc --noEmit"
   }
 }

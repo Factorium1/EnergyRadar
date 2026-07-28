@@ -8,7 +8,7 @@ import {
 
 const router: Router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
   const products = await prisma.product.findMany({
     select: {
       id: true,

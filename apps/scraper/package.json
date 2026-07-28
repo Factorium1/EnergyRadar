@@ -2,26 +2,28 @@
   "name": "@energyradar/scraper",
   "version": "0.0.0",
   "private": true,
-  "description": "",
+  "packageManager": "pnpm@10.22.0",
   "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "typecheck": "tsc --noEmit"
+  "engines": {
+    "node": ">=24"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@energyradar/db": "workspace:*",
     "cheerio": "^1.2.0",
     "dotenv": "^17.2.4"
   },
   "devDependencies": {
-    "@energyradar/typescript-config": "workspace:*",
-    "@types/node": "^26.0.1",
-    "tsx": "^4.22.4",
-    "typescript": "^6.0.3"
+    "@energyradar/eslint-config": "workspace:*",
+    "@energyradar/ts-config": "workspace:*",
+    "@types/node": "^24.x",
+    "eslint": "^9.x",
+    "tsx": "^4.x",
+    "typescript": "^6.x"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
   }
 }

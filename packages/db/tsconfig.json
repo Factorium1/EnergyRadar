@@ -1,9 +1,5 @@
 {
-  "extends": "@energyradar/typescript-config/base.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": ".",
-    "types": ["node"]
-  },
-  "include": ["src", "prisma.config.ts"]
+  "extends": "@energyradar/ts-config/node",
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "dist"],
 }

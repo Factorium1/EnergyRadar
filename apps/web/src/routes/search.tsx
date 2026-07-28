@@ -86,7 +86,7 @@ function RouteComponent() {
     <div className='w-full min-h-svh bg-[#F0F2F5]'>
       <div className='px-5 py-10 flex flex-col items-start gap-5 max-w-7xl mx-auto'>
         <span className='text-3xl font-semibold'>
-          Suchergebnisse fuer '{q}'
+          Suchergebnisse fuer {q}
         </span>
         <div className='w-full flex flex-col md:flex-row md:justify-between md:items-center gap-2 md:gap-0'>
           <div className='inline'>

@@ -1,7 +1,9 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "extends": "@energyradar/ts-config/react",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "dist"]
 }
