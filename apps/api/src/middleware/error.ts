@@ -1,11 +1,11 @@
-import type { ErrorRequestHandler } from 'express';
+import type { ErrorRequestHandler } from 'express'
 
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   if (err.status) {
-    return res.status(err.status).json({ msg: err.message });
+    return res.status(err.status).json({ msg: err.message })
   }
 
-  res.status(500).json({ msg: err.message });
-};
+  res.status(500).json({ msg: err.message })
+}
 
-export default errorHandler;
+export default errorHandler

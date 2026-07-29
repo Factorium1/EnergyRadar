@@ -1,28 +1,28 @@
-import express, { Router } from 'express';
-import { prisma } from '@energyradar/db';
+import express, { Router } from 'express'
+import { prisma } from '@energyradar/db'
 import {
   getProductPriceMedian,
   getProductsWithPriceChange,
   sortProductsByCheapest,
-} from '../../lib/helper/productPrice.js';
+} from '../../lib/helper/productPrice.js'
 
-const router: Router = express.Router();
+const router: Router = express.Router()
 
 router.get('/', async (_req, res, next) => {
   try {
-    const brands = await prisma.brand.findMany();
+    const brands = await prisma.brand.findMany()
 
     if (brands.length === 0) {
-      const error: Error & { status?: number } = new Error('No Brand found');
-      error.status = 404;
-      return next(error);
+      const error: Error & { status?: number } = new Error('No Brand found')
+      error.status = 404
+      return next(error)
     }
 
-    res.json(brands);
+    res.json(brands)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
 router.get('/:brandSlug', async (req, res, next) => {
   try {
@@ -30,12 +30,12 @@ router.get('/:brandSlug', async (req, res, next) => {
       where: {
         slug: req.params.brandSlug,
       },
-    });
+    })
 
     if (!brand) {
-      const error: Error & { status?: number } = new Error('No Brand found');
-      error.status = 404;
-      return next(error);
+      const error: Error & { status?: number } = new Error('No Brand found')
+      error.status = 404
+      return next(error)
     }
 
     const products = await prisma.product.findMany({
@@ -48,16 +48,16 @@ router.get('/:brandSlug', async (req, res, next) => {
         brand: true,
         offers: { include: { seller: true } },
       },
-    });
+    })
 
     const productsSorted = sortProductsByCheapest(
       getProductsWithPriceChange(getProductPriceMedian(products)),
-    );
+    )
 
-    res.json({ ...brand, products: productsSorted });
+    res.json({ ...brand, products: productsSorted })
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
-export default router;
+export default router

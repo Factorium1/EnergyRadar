@@ -1,8 +1,8 @@
-import { Search } from "lucide-react";
-import { ClipLoader } from "react-spinners";
-import { useSearchSubmit } from "../../hooks/useSearchSubmit";
-import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Search } from 'lucide-react'
+import { ClipLoader } from 'react-spinners'
+import { useSearchSubmit } from '../../hooks/useSearchSubmit'
+import { useState } from 'react'
+import { Link } from '@tanstack/react-router'
 
 const HomeHeader = ({
   data,
@@ -11,16 +11,16 @@ const HomeHeader = ({
   error,
 }: {
   data: {
-    id: string;
-    name: string;
-    slug: string;
-    imageUrl?: string;
-  }[];
-  isLoading: boolean;
-  isError: boolean;
-  error: Error | null;
+    id: string
+    name: string
+    slug: string
+    imageUrl?: string
+  }[]
+  isLoading: boolean
+  isError: boolean
+  error: Error | null
 }) => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('')
 
   return (
     <div className="relative w-full overflow-hidden bg-linear-to-br from-[#0f1450] via-[#1a1f71] to-[#1e2485] px-7 pt-16 pb-20 text-center">
@@ -38,8 +38,7 @@ const HomeHeader = ({
         </div>
 
         <span className="mt-3.5 mb-9 text-base font-medium text-white/65">
-          Monster, Red Bull, Rockstar und mehr — Preisvergleich aus 2
-          Online-Shops
+          Monster, Red Bull, Rockstar und mehr — Preisvergleich aus 2 Online-Shops
         </span>
 
         <form
@@ -64,16 +63,12 @@ const HomeHeader = ({
         </form>
 
         {isError && error && (
-          <span className="mt-5 font-semibold text-red-500">
-            {error.message}
-          </span>
+          <span className="mt-5 font-semibold text-red-500">{error.message}</span>
         )}
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           <span className="text-xs font-semibold text-white/45">Beliebt:</span>
-          {isLoading && (
-            <ClipLoader color="white" size={16} aria-label="Loading Spinner" />
-          )}
+          {isLoading && <ClipLoader color="white" size={16} aria-label="Loading Spinner" />}
           {data &&
             data.map((brand) => (
               <Link
@@ -88,7 +83,7 @@ const HomeHeader = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HomeHeader;
+export default HomeHeader

@@ -1,24 +1,21 @@
-import type * as cheerio from "cheerio";
+import type * as cheerio from 'cheerio'
 
 export function parseNutrientValue(text: string): number | null {
   // "180 kJ / 43 kcal" -> 43, "10,5 g" -> 10.5, "32 mg" -> 32
-  const match = text.match(/([\d,]+)\s*(?:kcal|g|mg)?\s*$/);
-  return match?.[1] ? Number(match[1].replace(",", ".")) : null;
+  const match = text.match(/([\d,]+)\s*(?:kcal|g|mg)?\s*$/)
+  return match?.[1] ? Number(match[1].replace(',', '.')) : null
 }
 
 /**
  * Looks for e.g. "Koffein" followed (somewhere nearby) by a number + "mg" + "/100 ml".
  */
-export function extractPer100ml(
-  text: string,
-  nutrientName: string,
-): number | null {
+export function extractPer100ml(text: string, nutrientName: string): number | null {
   const regex = new RegExp(
     `${nutrientName}[^\\d]*?([\\d,]+)\\s*mg\\s*/\\s*100\\s*ml`,
-    "i", // case-insensitive
-  );
-  const match = text.match(regex);
-  return match?.[1] ? Number(match[1].replace(",", ".")) : null;
+    'i', // case-insensitive
+  )
+  const match = text.match(regex)
+  return match?.[1] ? Number(match[1].replace(',', '.')) : null
 }
 
 /**
@@ -31,23 +28,20 @@ export function collectNutrientRows(
   labelSelector: string,
   valueSelector: string,
 ): Record<string, string> {
-  const nutrients: Record<string, string> = {};
+  const nutrients: Record<string, string> = {}
 
   $(rowSelector).each((_i, el) => {
-    const $el = $(el);
-    const label = $el.find(labelSelector).first().text().trim().toLowerCase();
-    const value = $el.find(valueSelector).last().text().trim();
-    if (label) nutrients[label] = value;
-  });
+    const $el = $(el)
+    const label = $el.find(labelSelector).first().text().trim().toLowerCase()
+    const value = $el.find(valueSelector).last().text().trim()
+    if (label) nutrients[label] = value
+  })
 
-  return nutrients;
+  return nutrients
 }
 
 /** Reads a value from the table and converts it straight into a number. */
-export function nutrientNumber(
-  nutrients: Record<string, string>,
-  label: string,
-): number | null {
-  const value = nutrients[label.toLowerCase()];
-  return value ? parseNutrientValue(value) : null;
+export function nutrientNumber(nutrients: Record<string, string>, label: string): number | null {
+  const value = nutrients[label.toLowerCase()]
+  return value ? parseNutrientValue(value) : null
 }

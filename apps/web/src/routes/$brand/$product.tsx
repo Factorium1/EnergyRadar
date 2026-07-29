@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from '@tanstack/react-query'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   ArrowUpRight,
   ChevronRightIcon,
@@ -8,9 +8,9 @@ import {
   SigmaIcon,
   TrendingDownIcon,
   TrendingUpIcon,
-} from "lucide-react";
-import { CircleLoader } from "react-spinners";
-import { useMemo } from "react";
+} from 'lucide-react'
+import { CircleLoader } from 'react-spinners'
+import { useMemo } from 'react'
 import {
   Area,
   AreaChart,
@@ -21,219 +21,207 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts";
+} from 'recharts'
 
 const CHART = {
-  series: "#2a78d6",
-  best: "#0ca30c",
-  grid: "#e5e7eb",
-  axis: "#9ca3af",
-  surface: "#ffffff",
-};
+  series: '#2a78d6',
+  best: '#0ca30c',
+  grid: '#e5e7eb',
+  axis: '#9ca3af',
+  surface: '#ffffff',
+}
 
 type BrandType = {
-  id: string;
-  name: string;
-  slug: string;
-  imageUrl?: string;
-};
+  id: string
+  name: string
+  slug: string
+  imageUrl?: string
+}
 
 type SellerType = {
-  id: string;
-  name: string;
-  slug: string;
-  imageUrl?: string | null;
-  shopUrl?: string | null;
-};
+  id: string
+  name: string
+  slug: string
+  imageUrl?: string | null
+  shopUrl?: string | null
+}
 
 type OfferType = {
-  id: string;
-  productUrl: string;
-  price: string | number;
-  currency: string;
-  shippingCost?: string | number | null;
-  freeShippingFrom?: string | number | null;
-  inStock: boolean;
-  lastCheckedAt: string;
-  lastChangedAt: string;
-  seller: SellerType;
-};
+  id: string
+  productUrl: string
+  price: string | number
+  currency: string
+  shippingCost?: string | number | null
+  freeShippingFrom?: string | number | null
+  inStock: boolean
+  lastCheckedAt: string
+  lastChangedAt: string
+  seller: SellerType
+}
 
 type TimelinePoint = {
-  date: string;
-  price: number;
-  sellerCount: number;
-};
+  date: string
+  price: number
+  sellerCount: number
+}
 
 type ProductType = {
-  id: string;
-  line: string;
-  name: string;
-  slug: string;
-  volumeMl: number;
-  ean?: string | null;
-  imageUrl?: string | null;
-  kcal?: number | null;
-  sugar?: number | null;
-  carbs?: number | null;
-  caffeine?: number | null;
-  taurine?: number | null;
-  sugarFree?: boolean | null;
-  source?: string | null;
-  brandId: string;
-  brand: BrandType;
-  offers: OfferType[];
-  priceTimeline: TimelinePoint[];
-  median: number;
-  price: string | null;
-  bestOfferId: string | null;
-  sellerCount: number;
-  change: number;
-};
+  id: string
+  line: string
+  name: string
+  slug: string
+  volumeMl: number
+  ean?: string | null
+  imageUrl?: string | null
+  kcal?: number | null
+  sugar?: number | null
+  carbs?: number | null
+  caffeine?: number | null
+  taurine?: number | null
+  sugarFree?: boolean | null
+  source?: string | null
+  brandId: string
+  brand: BrandType
+  offers: OfferType[]
+  priceTimeline: TimelinePoint[]
+  median: number
+  price: string | null
+  bestOfferId: string | null
+  sellerCount: number
+  change: number
+}
 
 function sellerInitials(name: string) {
-  return name.slice(0, 2).toUpperCase();
+  return name.slice(0, 2).toUpperCase()
 }
 
 function shippingLabel(offer: OfferType) {
   if (offer.freeShippingFrom != null) {
-    return `Kostenlos ab ${euro.format(Number(offer.freeShippingFrom))}`;
+    return `Kostenlos ab ${euro.format(Number(offer.freeShippingFrom))}`
   }
   if (offer.shippingCost != null) {
-    return `${euro.format(Number(offer.shippingCost))} Versand`;
+    return `${euro.format(Number(offer.shippingCost))} Versand`
   }
-  return "Click & Collect";
+  return 'Click & Collect'
 }
 
-const euro = new Intl.NumberFormat("de-DE", {
-  style: "currency",
-  currency: "EUR",
-});
+const euro = new Intl.NumberFormat('de-DE', {
+  style: 'currency',
+  currency: 'EUR',
+})
 
-const dateFmt = new Intl.DateTimeFormat("de-DE", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-});
+const dateFmt = new Intl.DateTimeFormat('de-DE', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+})
 
-const chartDateFmt = new Intl.DateTimeFormat("de-DE", {
-  day: "2-digit",
-  month: "2-digit",
-});
+const chartDateFmt = new Intl.DateTimeFormat('de-DE', {
+  day: '2-digit',
+  month: '2-digit',
+})
 
 function formatRelative(date: Date) {
-  const minutes = Math.round((Date.now() - date.getTime()) / 60000);
-  if (minutes < 60) return `vor ${Math.max(minutes, 1)} min`;
-  const hours = Math.round(minutes / 60);
-  if (hours < 24) return `vor ${hours} h`;
-  const days = Math.round(hours / 24);
-  return days === 1 ? "vor 1 Tag" : `vor ${days} Tagen`;
+  const minutes = Math.round((Date.now() - date.getTime()) / 60000)
+  if (minutes < 60) return `vor ${Math.max(minutes, 1)} min`
+  const hours = Math.round(minutes / 60)
+  if (hours < 24) return `vor ${hours} h`
+  const days = Math.round(hours / 24)
+  return days === 1 ? 'vor 1 Tag' : `vor ${days} Tagen`
 }
 
 function pricePerLiter(price: number, volumeMl: number) {
-  return volumeMl > 0 ? (price / volumeMl) * 1000 : 0;
+  return volumeMl > 0 ? (price / volumeMl) * 1000 : 0
 }
 
-export const Route = createFileRoute("/$brand/$product")({
+export const Route = createFileRoute('/$brand/$product')({
   component: RouteComponent,
-});
+})
 
 function RouteComponent() {
-  const { product } = Route.useParams();
+  const { product } = Route.useParams()
 
   async function getProductBySlug(): Promise<ProductType> {
-    const res = await fetch(`http://localhost:8000/api/v1/products/${product}`);
-    if (!res.ok) throw new Error("Produkt konnte nicht geladen werden");
-    return res.json();
+    const res = await fetch(`http://localhost:8000/api/v1/products/${product}`)
+    if (!res.ok) throw new Error('Produkt konnte nicht geladen werden')
+    return res.json()
   }
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["productSlug", product],
+    queryKey: ['productSlug', product],
     queryFn: getProductBySlug,
-  });
+  })
 
   const chartData = useMemo(() => {
-    if (!data) return [];
+    if (!data) return []
     return data.priceTimeline.map((point) => ({
       label: chartDateFmt.format(new Date(point.date)),
       fullDate: dateFmt.format(new Date(point.date)),
       price: point.price,
       perLiter: pricePerLiter(point.price, data.volumeMl),
       sellerCount: point.sellerCount,
-    }));
-  }, [data]);
+    }))
+  }, [data])
 
   if (isLoading) {
     return (
       <div className="w-full min-h-svh bg-[#F0F2F5] flex items-center justify-center">
         <CircleLoader color="#2563eb" />
       </div>
-    );
+    )
   }
 
   if (isError || !data) {
     return (
       <div className="w-full min-h-svh bg-[#F0F2F5] flex items-center justify-center">
         <span className="font-semibold text-md text-red-500">
-          {error?.message ?? "Produkt nicht gefunden"}
+          {error?.message ?? 'Produkt nicht gefunden'}
         </span>
       </div>
-    );
+    )
   }
 
-  const bestPrice = Number(data.price ?? 0);
-  const median = Number(data.median);
-  const changePercent = median > 0 ? (data.change / median) * 100 : 0;
-  const isCheaper = data.change > 0;
+  const bestPrice = Number(data.price ?? 0)
+  const median = Number(data.median)
+  const changePercent = median > 0 ? (data.change / median) * 100 : 0
+  const isCheaper = data.change > 0
 
   const bestOffer =
-    data.offers.find((offer) => offer.id === data.bestOfferId) ??
-    data.offers[0] ??
-    null;
-  const currency = bestOffer?.currency ?? "EUR";
-  const inStockCount = data.offers.filter((offer) => offer.inStock).length;
+    data.offers.find((offer) => offer.id === data.bestOfferId) ?? data.offers[0] ?? null
+  const currency = bestOffer?.currency ?? 'EUR'
+  const inStockCount = data.offers.filter((offer) => offer.inStock).length
 
   const lastChecked = data.offers.reduce<Date | null>((latest, offer) => {
-    const checked = new Date(offer.lastCheckedAt);
-    return latest === null || checked > latest ? checked : latest;
-  }, null);
+    const checked = new Date(offer.lastCheckedAt)
+    return latest === null || checked > latest ? checked : latest
+  }, null)
 
-  const highest = chartData.reduce(
-    (max, point) => Math.max(max, point.price),
-    0,
-  );
+  const highest = chartData.reduce((max, point) => Math.max(max, point.price), 0)
 
   const bestPoint = chartData.reduce<(typeof chartData)[number] | null>(
-    (best, point) =>
-      best === null || point.price <= best.price ? point : best,
+    (best, point) => (best === null || point.price <= best.price ? point : best),
     null,
-  );
+  )
 
-  const chartValues = [...chartData.map((point) => point.price), median];
-  const chartMin = Math.min(...chartValues);
-  const chartMax = Math.max(...chartValues);
-  const chartPad = Math.max((chartMax - chartMin) * 0.15, 0.05);
-  const yDomain: [number, number] = [
-    Math.max(chartMin - chartPad, 0),
-    chartMax + chartPad,
-  ];
+  const chartValues = [...chartData.map((point) => point.price), median]
+  const chartMin = Math.min(...chartValues)
+  const chartMax = Math.max(...chartValues)
+  const chartPad = Math.max((chartMax - chartMin) * 0.15, 0.05)
+  const yDomain: [number, number] = [Math.max(chartMin - chartPad, 0), chartMax + chartPad]
 
   const nutrition = [
-    { label: "Energie", value: data.kcal, unit: "kcal" },
-    { label: "Zucker", value: data.sugar, unit: "g" },
-    { label: "Kohlenhydrate", value: data.carbs, unit: "g" },
-    { label: "Koffein", value: data.caffeine, unit: "mg" },
-    { label: "Taurin", value: data.taurine, unit: "mg" },
-  ].filter((item) => item.value !== null && item.value !== undefined);
+    { label: 'Energie', value: data.kcal, unit: 'kcal' },
+    { label: 'Zucker', value: data.sugar, unit: 'g' },
+    { label: 'Kohlenhydrate', value: data.carbs, unit: 'g' },
+    { label: 'Koffein', value: data.caffeine, unit: 'mg' },
+    { label: 'Taurin', value: data.taurine, unit: 'mg' },
+  ].filter((item) => item.value !== null && item.value !== undefined)
 
   return (
     <div className="w-full min-h-svh bg-[#F0F2F5]">
       <div className="px-5 py-8 flex flex-col items-start gap-6 max-w-7xl mx-auto">
         <nav className="flex items-center gap-2 flex-wrap">
-          <Link
-            to="/"
-            className="text-blue-600 text-sm tracking-tight hover:underline"
-          >
+          <Link to="/" className="text-blue-600 text-sm tracking-tight hover:underline">
             Startseite
           </Link>
           <ChevronRightIcon size={14} className="text-gray-400" />
@@ -245,19 +233,13 @@ function RouteComponent() {
             {data.brand.name}
           </Link>
           <ChevronRightIcon size={14} className="text-gray-400" />
-          <span className="text-sm tracking-tight text-gray-500">
-            {data.name}
-          </span>
+          <span className="text-sm tracking-tight text-gray-500">{data.name}</span>
         </nav>
 
         <div className="w-full grid grid-cols-1 lg:grid-cols-5 gap-5">
           <div className="lg:col-span-2 rounded-2xl bg-white border border-gray-100 shadow-sm p-6 flex items-center justify-center">
             {data.imageUrl ? (
-              <img
-                src={data.imageUrl}
-                alt={data.name}
-                className="max-h-80 w-full object-contain"
-              />
+              <img src={data.imageUrl} alt={data.name} className="max-h-80 w-full object-contain" />
             ) : (
               <div className="h-80 w-full rounded-xl bg-gray-100" />
             )}
@@ -292,23 +274,17 @@ function RouteComponent() {
                 </h1>
                 <span className="text-sm text-gray-500">
                   {data.brand.name} · {data.line} · {data.volumeMl}ml
-                  {data.caffeine ? ` · ${data.caffeine}mg Koffein / 100ml` : ""}
+                  {data.caffeine ? ` · ${data.caffeine}mg Koffein / 100ml` : ''}
                 </span>
               </div>
 
               <div className="flex items-center gap-3 flex-wrap">
                 <span
                   className={`inline-flex items-center gap-1 text-xs font-semibold rounded-full px-2 py-0.5 ${
-                    isCheaper
-                      ? "bg-green-50 text-green-600"
-                      : "bg-red-50 text-red-600"
+                    isCheaper ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'
                   }`}
                 >
-                  {isCheaper ? (
-                    <TrendingDownIcon size={14} />
-                  ) : (
-                    <TrendingUpIcon size={14} />
-                  )}
+                  {isCheaper ? <TrendingDownIcon size={14} /> : <TrendingUpIcon size={14} />}
                   {Math.abs(changePercent).toFixed(1)}%
                 </span>
                 <span className="text-gray-300">|</span>
@@ -324,7 +300,7 @@ function RouteComponent() {
               </span>
               <div className="flex items-end gap-3 flex-wrap">
                 <span className="text-4xl font-extrabold text-gray-900 tracking-tight">
-                  {currency === "EUR"
+                  {currency === 'EUR'
                     ? euro.format(bestPrice)
                     : `${bestPrice.toFixed(2)} ${currency}`}
                 </span>
@@ -333,34 +309,27 @@ function RouteComponent() {
                 </span>
                 <span
                   className={`inline-flex items-center gap-1 text-xs font-bold rounded-full px-2 py-1 mb-0.5 ${
-                    isCheaper
-                      ? "bg-green-600 text-white"
-                      : "bg-red-600 text-white"
+                    isCheaper ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
                   }`}
                 >
-                  {isCheaper ? "−" : "+"}
-                  {Math.abs(changePercent).toFixed(0)}%{" "}
-                  {isCheaper ? "unter Ø" : "über Ø"}
+                  {isCheaper ? '−' : '+'}
+                  {Math.abs(changePercent).toFixed(0)}% {isCheaper ? 'unter Ø' : 'über Ø'}
                 </span>
               </div>
 
               <div className="flex items-center justify-between gap-4 flex-wrap border-t border-green-200 pt-4">
                 <div className="flex items-center gap-3">
                   <span className="h-10 w-10 shrink-0 rounded-lg bg-white border border-green-200 text-gray-700 text-xs font-bold flex items-center justify-center">
-                    {bestOffer ? sellerInitials(bestOffer.seller.name) : "ER"}
+                    {bestOffer ? sellerInitials(bestOffer.seller.name) : 'ER'}
                   </span>
                   <div className="flex flex-col">
                     <span className="text-sm font-semibold text-gray-900">
-                      {bestOffer
-                        ? `bei ${bestOffer.seller.name}`
-                        : "Kein Angebot verfügbar"}
+                      {bestOffer ? `bei ${bestOffer.seller.name}` : 'Kein Angebot verfügbar'}
                     </span>
                     <span className="text-xs text-gray-500">
-                      {bestOffer ? `${shippingLabel(bestOffer)} · ` : ""}
+                      {bestOffer ? `${shippingLabel(bestOffer)} · ` : ''}
                       Preis inkl. MwSt.
-                      {lastChecked
-                        ? ` · geprüft ${formatRelative(lastChecked)}`
-                        : ""}
+                      {lastChecked ? ` · geprüft ${formatRelative(lastChecked)}` : ''}
                     </span>
                   </div>
                 </div>
@@ -391,20 +360,14 @@ function RouteComponent() {
             label="Ø-Preis (Median)"
           />
           <StatTile
-            icon={
-              isCheaper ? (
-                <TrendingDownIcon size={16} />
-              ) : (
-                <TrendingUpIcon size={16} />
-              )
-            }
-            value={`${isCheaper ? "−" : "+"}${Math.abs(changePercent).toFixed(0)}%`}
-            label={isCheaper ? "unter Ø-Preis" : "über Ø-Preis"}
-            accent={isCheaper ? "text-green-600" : "text-red-600"}
+            icon={isCheaper ? <TrendingDownIcon size={16} /> : <TrendingUpIcon size={16} />}
+            value={`${isCheaper ? '−' : '+'}${Math.abs(changePercent).toFixed(0)}%`}
+            label={isCheaper ? 'unter Ø-Preis' : 'über Ø-Preis'}
+            accent={isCheaper ? 'text-green-600' : 'text-red-600'}
           />
           <StatTile
             icon={<ClockIcon size={16} />}
-            value={lastChecked ? formatRelative(lastChecked) : "—"}
+            value={lastChecked ? formatRelative(lastChecked) : '—'}
             label="zuletzt geprüft"
           />
         </div>
@@ -412,13 +375,10 @@ function RouteComponent() {
         <div className="w-full rounded-2xl bg-white border border-gray-100 shadow-sm p-6 flex flex-col gap-5">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="flex flex-col gap-1">
-              <h2 className="text-xl font-bold text-gray-900 tracking-tight">
-                Preisentwicklung
-              </h2>
+              <h2 className="text-xl font-bold text-gray-900 tracking-tight">Preisentwicklung</h2>
               <span className="text-sm text-gray-500">
-                Bester Preis pro Tag über alle Händler · letzte{" "}
-                {chartData.length} Tage · Spanne {euro.format(chartMin)} –{" "}
-                {euro.format(highest)}
+                Bester Preis pro Tag über alle Händler · letzte {chartData.length} Tage · Spanne{' '}
+                {euro.format(chartMin)} – {euro.format(highest)}
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -448,29 +408,14 @@ function RouteComponent() {
 
           <div className="w-full h-72">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart
-                data={chartData}
-                margin={{ top: 24, right: 16, bottom: 0, left: 0 }}
-              >
+              <AreaChart data={chartData} margin={{ top: 24, right: 16, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id="priceFill" x1="0" y1="0" x2="0" y2="1">
-                    <stop
-                      offset="0%"
-                      stopColor={CHART.series}
-                      stopOpacity={0.16}
-                    />
-                    <stop
-                      offset="100%"
-                      stopColor={CHART.series}
-                      stopOpacity={0}
-                    />
+                    <stop offset="0%" stopColor={CHART.series} stopOpacity={0.16} />
+                    <stop offset="100%" stopColor={CHART.series} stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid
-                  vertical={false}
-                  stroke={CHART.grid}
-                  strokeWidth={1}
-                />
+                <CartesianGrid vertical={false} stroke={CHART.grid} strokeWidth={1} />
                 <XAxis
                   dataKey="label"
                   tickLine={false}
@@ -524,9 +469,9 @@ function RouteComponent() {
                     strokeWidth={2}
                     label={{
                       value: euro.format(bestPoint.price),
-                      position: "top",
+                      position: 'top',
                       offset: 12,
-                      fill: "#374151",
+                      fill: '#374151',
                       fontSize: 12,
                       fontWeight: 700,
                     }}
@@ -539,13 +484,10 @@ function RouteComponent() {
 
         <div className="w-full rounded-2xl bg-white border border-gray-100 shadow-sm overflow-hidden">
           <div className="p-6 flex flex-col gap-1">
-            <h2 className="text-xl font-bold text-gray-900 tracking-tight">
-              Preisvergleich
-            </h2>
+            <h2 className="text-xl font-bold text-gray-900 tracking-tight">Preisvergleich</h2>
             <span className="text-sm text-gray-500">
-              {data.offers.length}{" "}
-              {data.offers.length === 1 ? "Angebot" : "Angebote"} · Preise inkl.
-              MwSt.
+              {data.offers.length} {data.offers.length === 1 ? 'Angebot' : 'Angebote'} · Preise
+              inkl. MwSt.
             </span>
           </div>
           <div className="overflow-x-auto">
@@ -572,14 +514,11 @@ function RouteComponent() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {data.offers.map((offer) => {
-                  const offerPrice = Number(offer.price);
-                  const isBest = offer.id === data.bestOfferId;
+                  const offerPrice = Number(offer.price)
+                  const isBest = offer.id === data.bestOfferId
 
                   return (
-                    <tr
-                      key={offer.id}
-                      className={isBest ? "bg-green-50/60" : "hover:bg-gray-50"}
-                    >
+                    <tr key={offer.id} className={isBest ? 'bg-green-50/60' : 'hover:bg-gray-50'}>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <span className="h-9 w-9 shrink-0 rounded-lg bg-gray-100 text-gray-700 text-xs font-bold hidden md:flex items-center justify-center">
@@ -608,13 +547,9 @@ function RouteComponent() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {offer.inStock ? (
-                          <span className="text-xs font-semibold text-green-600">
-                            Auf Lager
-                          </span>
+                          <span className="text-xs font-semibold text-green-600">Auf Lager</span>
                         ) : (
-                          <span className="text-xs font-semibold text-gray-400">
-                            Ausverkauft
-                          </span>
+                          <span className="text-xs font-semibold text-gray-400">Ausverkauft</span>
                         )}
                       </td>
                       <td className="px-6 py-4 text-right">
@@ -624,8 +559,8 @@ function RouteComponent() {
                           rel="noreferrer"
                           className={`inline-flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
                             isBest
-                              ? "bg-green-600 hover:bg-green-700 text-white"
-                              : "bg-gray-100 hover:bg-gray-200 text-gray-900"
+                              ? 'bg-green-600 hover:bg-green-700 text-white'
+                              : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
                           }`}
                         >
                           <span className="hidden md:inline">Zum</span>
@@ -635,7 +570,7 @@ function RouteComponent() {
                         </a>
                       </td>
                     </tr>
-                  );
+                  )
                 })}
               </tbody>
             </table>
@@ -645,9 +580,7 @@ function RouteComponent() {
         {nutrition.length > 0 && (
           <div className="w-full rounded-2xl bg-white border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <h2 className="text-xl font-bold text-gray-900 tracking-tight">
-                Nährwerte
-              </h2>
+              <h2 className="text-xl font-bold text-gray-900 tracking-tight">Nährwerte</h2>
               <span className="text-sm text-gray-500">
                 Angaben je 100 ml · Dose mit {data.volumeMl} ml
               </span>
@@ -666,8 +599,8 @@ function RouteComponent() {
                   </span>
                   <span className="text-xs text-gray-500">
                     {((Number(item.value) * data.volumeMl) / 100).toFixed(
-                      item.unit === "g" ? 1 : 0,
-                    )}{" "}
+                      item.unit === 'g' ? 1 : 0,
+                    )}{' '}
                     {item.unit} je Dose
                   </span>
                 </div>
@@ -677,79 +610,68 @@ function RouteComponent() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 type ChartPoint = {
-  label: string;
-  fullDate: string;
-  price: number;
-  perLiter: number;
-};
+  label: string
+  fullDate: string
+  price: number
+  perLiter: number
+}
 
 function PriceTooltip({
   active,
   payload,
   median,
 }: {
-  active?: boolean;
-  payload?: { payload: ChartPoint }[];
-  median: number;
+  active?: boolean
+  payload?: { payload: ChartPoint }[]
+  median: number
 }) {
-  const point = payload?.[0]?.payload;
-  if (!active || !point) return null;
+  const point = payload?.[0]?.payload
+  if (!active || !point) return null
 
-  const diff = median > 0 ? ((point.price - median) / median) * 100 : 0;
+  const diff = median > 0 ? ((point.price - median) / median) * 100 : 0
 
   return (
     <div className="rounded-xl bg-white border border-gray-200 shadow-lg px-3 py-2 flex flex-col gap-1">
-      <span className="text-xs font-medium text-gray-500">
-        {point.fullDate}
-      </span>
+      <span className="text-xs font-medium text-gray-500">{point.fullDate}</span>
       <div className="flex items-center gap-2">
         <svg width="12" height="4" aria-hidden>
-          <line
-            x1="0"
-            y1="2"
-            x2="12"
-            y2="2"
-            stroke={CHART.series}
-            strokeWidth="2"
-          />
+          <line x1="0" y1="2" x2="12" y2="2" stroke={CHART.series} strokeWidth="2" />
         </svg>
         <span className="text-base font-bold text-gray-900 tabular-nums">
           {euro.format(point.price)}
         </span>
       </div>
       <span className="text-xs text-gray-500 tabular-nums">
-        {euro.format(point.perLiter)}/L ·{" "}
-        <span className={diff <= 0 ? "text-green-600" : "text-red-600"}>
-          {diff > 0 ? "+" : "−"}
+        {euro.format(point.perLiter)}/L ·{' '}
+        <span className={diff <= 0 ? 'text-green-600' : 'text-red-600'}>
+          {diff > 0 ? '+' : '−'}
           {Math.abs(diff).toFixed(1)}% vs. Ø
         </span>
       </span>
     </div>
-  );
+  )
 }
 
 function StatTile({
   icon,
   value,
   label,
-  accent = "text-gray-900",
+  accent = 'text-gray-900',
 }: {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-  accent?: string;
+  icon: React.ReactNode
+  value: string
+  label: string
+  accent?: string
 }) {
   return (
     <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-4 flex flex-col gap-1">
       <span className="text-gray-400">{icon}</span>
-      <span className={`text-2xl font-extrabold tracking-tight ${accent}`}>
-        {value}
-      </span>
+      <span className={`text-2xl font-extrabold tracking-tight ${accent}`}>{value}</span>
       <span className="text-xs font-medium text-gray-500">{label}</span>
     </div>
-  );
+  )
 }

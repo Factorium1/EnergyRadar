@@ -28,14 +28,14 @@ kcal).
 
 ## Tech Stack
 
-| Area     | Technology                                                        |
-| -------- | ----------------------------------------------------------------- |
-| Monorepo | Turborepo, pnpm workspaces                                        |
+| Area     | Technology                                                         |
+| -------- | ------------------------------------------------------------------ |
+| Monorepo | Turborepo, pnpm workspaces                                         |
 | Frontend | React 19, Vite, TanStack Router & Query, Tailwind CSS v4, Recharts |
-| Backend  | Express 5, Pino                                                   |
-| Database | PostgreSQL, Prisma 7                                              |
-| Scraper  | Cheerio, tsx                                                      |
-| Language | TypeScript (everywhere)                                           |
+| Backend  | Express 5, Pino                                                    |
+| Database | PostgreSQL, Prisma 7                                               |
+| Scraper  | Cheerio, tsx                                                       |
+| Language | TypeScript (everywhere)                                            |
 
 ## Project Structure
 
@@ -103,13 +103,13 @@ Please run this sparingly — see the note at the top of this README.
 
 Base URL: `/api/v1`
 
-| Method | Endpoint                 | Description                                            |
-| ------ | ------------------------ | ------------------------------------------------------ |
-| `GET`  | `/deals`                 | Products sorted by cheapest price, with price change    |
-| `GET`  | `/brands`                | All brands                                             |
-| `GET`  | `/brands/:brandSlug`     | A single brand including its products                  |
-| `GET`  | `/products/:productSlug` | Product details, offers per seller, price timeline      |
-| `GET`  | `/search?q=`             | Search across product name, product line and volume     |
+| Method | Endpoint                 | Description                                          |
+| ------ | ------------------------ | ---------------------------------------------------- |
+| `GET`  | `/deals`                 | Products sorted by cheapest price, with price change |
+| `GET`  | `/brands`                | All brands                                           |
+| `GET`  | `/brands/:brandSlug`     | A single brand including its products                |
+| `GET`  | `/products/:productSlug` | Product details, offers per seller, price timeline   |
+| `GET`  | `/search?q=`             | Search across product name, product line and volume  |
 
 ## Scripts
 

@@ -1,15 +1,15 @@
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router'
 
 export function useSearchSubmit(searchValue: string) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return function handleSubmit(e: React.SubmitEvent) {
-    e.preventDefault();
+    e.preventDefault()
     if (searchValue === '') {
-      navigate({ to: '/' });
-      return;
+      navigate({ to: '/' })
+      return
     }
 
-    navigate({ to: '/search', search: { q: searchValue } });
-  };
+    navigate({ to: '/search', search: { q: searchValue } })
+  }
 }

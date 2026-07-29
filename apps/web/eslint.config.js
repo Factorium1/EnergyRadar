@@ -1,3 +1,3 @@
-import { reactConfig } from "@energyradar/eslint-config/react";
+import { reactConfig } from '@energyradar/eslint-config/react'
 
-export default reactConfig;
+export default reactConfig

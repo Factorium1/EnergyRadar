@@ -1,5 +1,5 @@
 {
   "extends": "@energyradar/ts-config/node",
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "dist"],
+  "exclude": ["node_modules", "dist"]
 }

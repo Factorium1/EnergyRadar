@@ -1,14 +1,14 @@
-import express, { Router } from 'express';
-import { prisma } from '@energyradar/db';
+import express, { Router } from 'express'
+import { prisma } from '@energyradar/db'
 import {
   buildPriceTimeline,
   getProductPriceMedian,
   getProductsWithPriceChange,
-} from '../../lib/helper/productPrice.js';
+} from '../../lib/helper/productPrice.js'
 
-const router: Router = express.Router();
+const router: Router = express.Router()
 
-const TIMELINE_DAYS = 30;
+const TIMELINE_DAYS = 30
 
 router.get('/:productSlug', async (req, res, next) => {
   try {
@@ -23,14 +23,14 @@ router.get('/:productSlug', async (req, res, next) => {
           orderBy: { price: 'asc' },
         },
       },
-    });
+    })
 
     if (!product) {
       const error: Error & { status?: number } = new Error(
         `Product ${req.params.productSlug} not Found`,
-      );
-      error.status = 404;
-      return next(error);
+      )
+      error.status = 404
+      return next(error)
     }
 
     const history = await prisma.priceHistory.findMany({
@@ -42,19 +42,17 @@ router.get('/:productSlug', async (req, res, next) => {
         inStock: true,
       },
       orderBy: { recordedAt: 'asc' },
-    });
+    })
 
-    const [productWithChange] = getProductsWithPriceChange(
-      getProductPriceMedian([product]),
-    );
+    const [productWithChange] = getProductsWithPriceChange(getProductPriceMedian([product]))
 
     res.json({
       ...productWithChange,
       priceTimeline: buildPriceTimeline(history, TIMELINE_DAYS),
-    });
+    })
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
-export default router;
+export default router
