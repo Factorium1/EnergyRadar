@@ -2,8 +2,7 @@
   "name": "energyradar",
   "version": "0.0.0",
   "private": true,
-  "main": "index.js",
-  "packageManager": "pnpm@10.22.0",
+  "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72",
   "engines": {
     "node": ">=24"
   },
@@ -12,18 +11,14 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "prettier": "^3.x",
-    "turbo": "^2.x",
-    "typescript": "^6.x"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@prisma/engines",
-      "prisma"
-    ]
+    "prettier": "catalog:lint",
+    "turbo": "catalog:build",
+    "typescript": "catalog:core"
   }
 }

@@ -4,28 +4,33 @@
   "private": true,
   "main": "./src/index.ts",
   "types": "./src/index.ts",
-  "packageManager": "pnpm@10.22.0",
   "type": "module",
   "dependencies": {
-    "@prisma/adapter-pg": "^7.8.0",
-    "@prisma/client": "^7.8.0",
-    "dotenv": "^17.2.4",
-    "pg": "^8.22.0"
+    "@prisma/adapter-pg": "catalog:db",
+    "@prisma/client": "catalog:db",
+    "dotenv": "catalog:",
+    "pg": "catalog:db"
   },
   "devDependencies": {
     "@energyradar/eslint-config": "workspace:*",
     "@energyradar/ts-config": "workspace:*",
-    "@types/node": "^24.x",
-    "@types/pg": "^8.20.0",
-    "eslint": "^9.x",
-    "prisma": "^7.8.0",
-    "tsx": "^4.x",
-    "typescript": "^6.x"
+    "@energyradar/vitest-config": "workspace:*",
+    "@types/node": "catalog:core",
+    "@types/pg": "catalog:db",
+    "@vitest/coverage-v8": "catalog:test",
+    "eslint": "catalog:lint",
+    "prisma": "catalog:db",
+    "tsx": "catalog:core",
+    "typescript": "catalog:core",
+    "vitest": "catalog:test"
   },
   "scripts": {
     "generate": "prisma generate",
     "migrate:dev": "prisma migrate dev",
     "migrate:deploy": "prisma migrate deploy",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   }
 }

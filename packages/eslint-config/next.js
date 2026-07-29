@@ -1,4 +1,4 @@
-import nextVitals from 'eslint-config-next/core-web-vitals'
-import { base } from './base.js'
+import next from '@next/eslint-plugin-next'
+import { reactConfig } from './react.js'
 
-export const nextConfig = [...base, ...nextVitals]
+export const nextConfig = [...reactConfig, next.flatConfig.coreWebVitals]

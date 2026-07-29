@@ -4,8 +4,6 @@
     "lib": ["es2022"],
     "types": ["node"],
     "module": "NodeNext",
-    "outDir": "dist",
-    "sourceMap": true,
-    "noEmit": false
+    "sourceMap": true
   }
 }

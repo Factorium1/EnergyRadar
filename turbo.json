@@ -13,7 +13,17 @@
       "persistent": true
     },
     "type-check": {
-      "dependsOn": ["^build"]
+      "outputs": []
+    },
+    "test": {
+      "outputs": []
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:coverage": {
+      "outputs": ["coverage/**"]
     }
   }
 }

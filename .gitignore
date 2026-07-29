@@ -11,11 +11,15 @@ node_modules
 # Turbo
 .turbo
 
+# Test Output
+coverage
+
 # Build Outputs
 .next/
 out/
 build
 dist
+*.tsbuildinfo
 
 # Debug
 npm-debug.log*

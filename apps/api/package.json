@@ -2,34 +2,39 @@
   "name": "@energyradar/api",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@10.22.0",
   "type": "module",
   "engines": {
     "node": ">=24"
   },
   "dependencies": {
     "@energyradar/db": "workspace:*",
-    "cors": "^2.8.6",
-    "dotenv": "^17.2.4",
-    "express": "^5.2.1",
-    "pino": "^10.3.1",
-    "pino-http": "^11.0.0"
+    "cors": "catalog:",
+    "dotenv": "catalog:",
+    "express": "catalog:",
+    "pino": "catalog:",
+    "pino-http": "catalog:"
   },
   "devDependencies": {
     "@energyradar/eslint-config": "workspace:*",
     "@energyradar/ts-config": "workspace:*",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/node": "^24.x",
-    "eslint": "^9.x",
-    "pino-pretty": "^13.1.3",
-    "tsx": "^4.x",
-    "typescript": "^6.x"
+    "@energyradar/vitest-config": "workspace:*",
+    "@types/cors": "catalog:",
+    "@types/express": "catalog:",
+    "@types/node": "catalog:core",
+    "@vitest/coverage-v8": "catalog:test",
+    "eslint": "catalog:lint",
+    "pino-pretty": "catalog:",
+    "tsx": "catalog:core",
+    "typescript": "catalog:core",
+    "vitest": "catalog:test"
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "tsx src/index.ts",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   }
 }

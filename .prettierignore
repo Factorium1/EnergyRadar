@@ -4,4 +4,5 @@ build
 out
 .next
 .turbo
+coverage
 pnpm-lock.yaml
