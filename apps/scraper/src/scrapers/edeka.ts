@@ -1,9 +1,9 @@
 import * as cheerio from 'cheerio'
-import type { ScraperProduct, ScraperProductWithNutrition } from '../../types/product.js'
-import { collectNutrientRows, extractPer100ml, nutrientNumber } from '../../lib/helper/nutrition.js'
-import { canSizeFromPrices, parseGermanNumber, parseGermanPrice } from '../../lib/helper/parse.js'
-import { fetchHtml, politeDelay } from '../../lib/helper/request.js'
-import { filterByBrand } from '../../lib/brands.js'
+import type { ScraperProduct, ScraperProductWithNutrition } from '../lib/types/product.js'
+import { collectNutrientRows, extractPer100ml, nutrientNumber } from '../lib/helper/nutrition.js'
+import { canSizeFromPrices, parseGermanNumber, parseGermanPrice } from '../lib/helper/parse.js'
+import { fetchHtml, politeDelay } from '../lib/helper/request.js'
+import { filterByBrand } from '../lib/brands.js'
 
 const baseUrl = 'https://www.edeka24.de/Lebensmittel/Getraenke/Energydrinks/'
 

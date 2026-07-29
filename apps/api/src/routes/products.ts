@@ -4,7 +4,7 @@ import {
   buildPriceTimeline,
   getProductPriceMedian,
   getProductsWithPriceChange,
-} from '../../lib/helper/productPrice.js'
+} from '../lib/helper/productPrice.js'
 
 const router: Router = express.Router()
 

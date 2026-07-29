@@ -7,7 +7,7 @@ config({ path: ['.env', '../../.env'] })
 import express from 'express'
 import cors from 'cors'
 import { pinoHttp } from 'pino-http'
-import { logger } from '../lib/logger.js'
+import { logger } from './lib/logger.js'
 import brands from './routes/brands.js'
 import products from './routes/products.js'
 import deals from './routes/deals.js'

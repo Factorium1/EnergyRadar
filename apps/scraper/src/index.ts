@@ -7,9 +7,9 @@ config({ path: ['.env', '../../.env'] })
 import { prisma } from '@energyradar/db'
 import { getAldiData } from './scrapers/aldi.js'
 import { getEdekaData } from './scrapers/edeka.js'
-import { matchBrand } from '../lib/brands.js'
-import { slugify } from '../lib/helper/parse.js'
-import type { ScraperProductWithNutrition } from '../types/product.js'
+import { matchBrand } from './lib/brands.js'
+import { slugify } from './lib/helper/parse.js'
+import type { ScraperProductWithNutrition } from './lib/types/product.js'
 
 const edeka = await getEdekaData()
 const aldi = await getAldiData()
