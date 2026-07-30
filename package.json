@@ -12,7 +12,7 @@
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "check": "turbo run lint type-check",
-    "commit": "turbo run lint type-check test format:check",
+    "commit": "pnpm format:check && turbo run lint type-check test",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage",
     "format": "prettier --write .",
