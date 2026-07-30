@@ -114,7 +114,7 @@ export function buildPriceTimeline(history: PriceHistoryRow[], days = 30) {
     timeline.push({
       date: day.toISOString(),
       price: Math.min(...pool.map((entry) => entry.price)),
-      sellerCount: known.length,
+      sellerCount: known.length, //How many dealers had (on this day) an offer for the product
     })
   }
 
