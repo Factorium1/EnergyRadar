@@ -21,9 +21,11 @@
     "@types/cors": "catalog:",
     "@types/express": "catalog:",
     "@types/node": "catalog:core",
+    "@types/supertest": "catalog:",
     "@vitest/coverage-v8": "catalog:test",
     "eslint": "catalog:lint",
     "pino-pretty": "catalog:",
+    "supertest": "catalog:",
     "tsx": "catalog:core",
     "typescript": "catalog:core",
     "vitest": "catalog:test"
