@@ -3,7 +3,7 @@ import type { ScraperProduct, ScraperProductWithNutrition } from '../lib/types/p
 import { collectNutrientRows, extractPer100ml, nutrientNumber } from '../lib/helper/nutrition.js'
 import { canSizeFromPrices, parseGermanNumber, parseGermanPrice } from '../lib/helper/parse.js'
 import { fetchHtml, politeDelay } from '../lib/helper/request.js'
-import { filterByBrand } from '../lib/brands.js'
+import { filterByBrand } from '../lib/helper/brands.js'
 
 const baseUrl = 'https://www.edeka24.de/Lebensmittel/Getraenke/Energydrinks/'
 
